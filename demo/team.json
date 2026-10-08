@@ -1,0 +1,16 @@
+{
+  "fictional": true,
+  "members": [
+    {
+      "fulcra_userid": "00000000-0000-4000-8000-000000000001",
+      "name": "Morgan",
+      "role": "owner"
+    },
+    {
+      "fulcra_userid": "00000000-0000-4000-8000-000000000002",
+      "name": "Priya",
+      "role": "strategist"
+    }
+  ],
+  "pending": []
+}
