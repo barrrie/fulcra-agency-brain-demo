@@ -1,0 +1,22 @@
+{
+  "fictional": true,
+  "note": "Card signals. Meetings recur on a weekday at a New York time, so the demo never goes stale. Asana holds counts only.",
+  "generatedHoursAgo": 2,
+  "clients": {
+    "pebblebrook-pet-co": {
+      "meetings": [
+        { "title": "Pebblebrook weekly", "weekday": 2, "time": "14:00", "minutes": 30 },
+        { "title": "Owned sub: legal review", "weekday": 4, "time": "11:00", "minutes": 45 }
+      ],
+      "asana": { "open": 41, "overdue": 24 }
+    },
+    "corvid-analytics": {
+      "meetings": [{ "title": "Corvid biweekly", "weekday": 4, "time": "13:00", "minutes": 45 }],
+      "asana": { "open": 18, "overdue": 7 }
+    },
+    "quarry-climbing": {
+      "meetings": [],
+      "asana": { "open": 9, "overdue": 2 }
+    }
+  }
+}

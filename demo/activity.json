@@ -1,0 +1,135 @@
+{
+  "fictional": true,
+  "note": "Console activity in the shape Fulcra's updates and dataset endpoints return. Times are hours before now; paths starting clients/ are under AGENCY_ROOT.",
+  "own": {
+    "file_changes": [
+      {
+        "full_name": "clients/pebblebrook-pet-co/log.md",
+        "state": "uploaded",
+        "uploaded_at": 3,
+        "size": 812
+      },
+      {
+        "full_name": "clients/pebblebrook-pet-co/log.md",
+        "state": "archived",
+        "uploaded_at": 50,
+        "archived_at": 3
+      },
+      {
+        "full_name": "clients/pebblebrook-pet-co/decisions.md",
+        "state": "uploaded",
+        "uploaded_at": 5,
+        "size": 1430
+      },
+      {
+        "full_name": "clients/pebblebrook-pet-co/decisions.md",
+        "state": "archived",
+        "uploaded_at": 120,
+        "archived_at": 5
+      },
+      {
+        "full_name": "clients/corvid-analytics/playbook.md",
+        "state": "uploaded",
+        "uploaded_at": 27,
+        "size": 2104
+      },
+      {
+        "full_name": "clients/corvid-analytics/playbook.md",
+        "state": "archived",
+        "uploaded_at": 200,
+        "archived_at": 27
+      },
+      {
+        "full_name": "clients/quarry-climbing/links.md",
+        "state": "uploaded",
+        "uploaded_at": 46,
+        "size": 390
+      },
+      {
+        "full_name": "signals.json",
+        "state": "uploaded",
+        "uploaded_at": 2,
+        "size": 640
+      },
+      {
+        "full_name": "signals.json",
+        "state": "archived",
+        "uploaded_at": 26,
+        "archived_at": 2
+      }
+    ],
+    "data_types": {
+      "CalendarEvent": 14
+    }
+  },
+  "peers": [
+    {
+      "uid": "00000000-0000-4000-8000-000000000002",
+      "updates": {
+        "file_changes": [
+          {
+            "full_name": "/priya/thread-watch/pebblebrook.md",
+            "state": "uploaded",
+            "uploaded_at": 1,
+            "size": 1520
+          },
+          {
+            "full_name": "/priya/thread-watch/pebblebrook.md",
+            "state": "archived",
+            "uploaded_at": 25,
+            "archived_at": 1
+          },
+          {
+            "full_name": "/priya/thread-watch/quarry.md",
+            "state": "uploaded",
+            "uploaded_at": 20,
+            "size": 610
+          }
+        ],
+        "data_types": {}
+      }
+    },
+    {
+      "uid": "7c2e91d4-3b6a-4f0e-9d21-6a8f0c5e2b17",
+      "updates": {
+        "file_changes": [
+          {
+            "full_name": "/signalboard/readouts/corvid-october.md",
+            "state": "uploaded",
+            "uploaded_at": 30,
+            "size": 2890
+          }
+        ],
+        "data_types": {}
+      }
+    }
+  ],
+  "datasets": [
+    {
+      "datashare_id": "00000000-0000-4000-b000-000000000001",
+      "datashare_name": "Thread watchlists (Priya)",
+      "sharing_fulcra_userid": "00000000-0000-4000-8000-000000000002",
+      "sharing_fulcra_user_name": "Priya",
+      "grant_type": "user",
+      "file_paths": [
+        "/priya/thread-watch"
+      ],
+      "data_types": [],
+      "created_at": 4
+    },
+    {
+      "datashare_id": "00000000-0000-4000-b000-000000000002",
+      "datashare_name": "Corvid readouts (Mel)",
+      "sharing_fulcra_userid": "7c2e91d4-3b6a-4f0e-9d21-6a8f0c5e2b17",
+      "grant_type": "user",
+      "file_paths": [
+        "/signalboard/readouts"
+      ],
+      "data_types": [],
+      "created_at": 300
+    }
+  ],
+  "names": {
+    "CalendarEvent": "Calendar events"
+  }
+}

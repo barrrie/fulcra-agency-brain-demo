@@ -108,7 +108,7 @@
         {#if !verificationInfo}
           <div class="flex flex-col gap-2.5">
             <button
-              class="btn h-12 w-full rounded-lg bg-fulcra-teal/20 text-[14.5px] font-medium text-fulcra-teal transition-colors hover:bg-fulcra-teal/50 hover:text-fulcra-black"
+              class="btn h-12 w-full rounded-lg bg-brand/20 text-[14.5px] font-medium text-brand transition-colors hover:bg-brand/50 hover:text-fulcra-black"
               on:click={startLogin}>Sign In</button
             >
             <button
@@ -158,14 +158,14 @@
               href={verificationInfo.verificationUri}
               target="_blank"
               rel="noopener noreferrer"
-              class="text-fulcra-teal underline hover:text-fulcra-white">Open the verification page</a
+              class="text-brand underline hover:text-fulcra-white">Open the verification page</a
             >.
           </p>
         {/if}
       </div>
 
       <div class="mt-5 flex items-center gap-2.5 pl-0.5">
-        <span class="h-[5px] w-[5px] flex-none rounded-full bg-fulcra-teal"></span>
+        <span class="h-[5px] w-[5px] flex-none rounded-full bg-brand"></span>
         <p class="text-[12.5px] text-fulcra-gray">
           Sign-in handled by Auth0. Data access via the
           <a href="https://docs.fulcradynamics.com" class="text-fulcra-gray underline hover:text-fulcra-white"

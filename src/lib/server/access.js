@@ -3,6 +3,7 @@ import { FulcraAPI } from '$lib/api-client.js';
 import { listClients, CLIENTS_ROOT, AGENCY_ROOT, DEMO_FIXTURES, uploadFile } from '$lib/server/brains.js';
 import { env as privateEnv } from '$env/dynamic/private';
 import { error } from '@sveltejs/kit';
+import { demoAccessMap } from '$lib/server/demo.js';
 import { buildAccessMap, shareReach, grantBody, revokePlan, UUID, addTeammate } from '$lib/access.js';
 
 export const TEAM_PATH = `${AGENCY_ROOT}/team.json`;
@@ -55,7 +56,7 @@ async function readGroups(token, ids) {
 
 /** Everything the access page needs, read live from Fulcra. */
 export async function loadAccessMap(token) {
-  if (DEMO_FIXTURES) throw error(403, 'Access management is off in demo mode');
+  if (DEMO_FIXTURES) return demoAccessMap();
   const api = new FulcraAPI(env.PUBLIC_FULCRA_API_ENDPOINT, token);
   const [clients, shares, team] = await Promise.all([
     listClients(token),

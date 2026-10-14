@@ -2,12 +2,12 @@
   import './layout.css';
   import { blur } from 'svelte/transition';
   import { page } from '$app/state';
-  import OwnerNav from '$lib/components/OwnerNav.svelte';
+  import AppNav from '$lib/components/AppNav.svelte';
 
   let { children } = $props();
 </script>
 
-<OwnerNav />
+<AppNav />
 
 {#key page.url.pathname}
   <div class="flex h-full min-h-screen w-full flex-col p-3" in:blur>

@@ -29,7 +29,7 @@ export function shareReach(share, folder) {
  * Build the client × grantee map.
  * @param {string[]} clients   client slugs
  * @param {object[]} shares    datashares from GET /user/v1/datashare
- * @param {{fulcra_userid:string,name:string}[]} team  inside-the-agency team list
+ * @param {{fulcra_userid:string,name:string}[]} team  inside-Kind-Stranger list
  * @param {Record<string,{name?:string, participants?:string[]}>} groups  group info by id
  * @param {string} root        folder that holds the client folders
  */
@@ -125,7 +125,7 @@ export const UUID =/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12
 /** Body for a new datashare giving one grantee the whole client folder. */
 export function grantBody(slug, kind, id, ownerId, root = '/demo-agency/clients') {
   return {
-    datashare_name: `KS brain: ${slug} -> ${kind} ${id.slice(0, 8)}`,
+    datashare_name: `Brain: ${slug} -> ${kind} ${id.slice(0, 8)}`,
     fulcra_user_name: ownerId,
     time_start: null,
     time_end: null,

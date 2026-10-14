@@ -3,6 +3,7 @@
   import { user } from '$lib/user';
   import { onMount } from 'svelte';
   import LoginDeviceFlow from '$lib/components/LoginDeviceFlow.svelte';
+  import { displayName } from '$lib/clients.js';
 
   let map = $state(null);
   let loadError = $state(null);
@@ -47,7 +48,7 @@
     if ($user.authenticated && !map && !loadError) load();
   });
 
-  const titleCase = (s) => s.split('-').map((w) => w[0].toUpperCase() + w.slice(1)).join(' ');
+  const titleCase = displayName;
   const shortId = (id) => (id.length > 12 ? `${id.slice(0, 8)}…` : id);
   const label = (r) => r.name ?? (r.kind === 'group' ? `Group ${shortId(r.id)}` : `User ${shortId(r.id)}`);
 
@@ -164,7 +165,14 @@
 {:else}
   <main class="mx-auto w-full max-w-5xl px-4 py-8">
     <h1 class="text-3xl font-bold text-fulcra-white">Who can see what</h1>
-    <p class="mt-1 text-fulcra-gray">Live from your Fulcra shares. You always have access to every brain.</p>
+    <p class="mt-1 text-fulcra-gray">
+      {#if map?.demo}
+        Demo data: fictional shares, and nothing you do here changes them.
+      {:else}
+        Live from your Fulcra shares.
+      {/if}
+      You always have access to every brain.
+    </p>
 
     {#if loadError}
       <p class="mt-6 rounded-lg border border-red-400/40 bg-red-500/10 p-4 text-red-300">{loadError}</p>
@@ -174,7 +182,7 @@
       {#if notice}
         <p
           class="mt-6 rounded-lg p-3 text-sm {notice.ok
-            ? 'border border-fulcra-teal/40 bg-fulcra-teal/10 text-fulcra-teal'
+            ? 'border border-brand/40 bg-brand/10 text-brand'
             : 'border border-red-400/40 bg-red-500/10 text-red-300'}"
           data-testid="notice"
         >
@@ -236,7 +244,7 @@
           {map.rows.length} {map.rows.length === 1 ? 'person or group' : 'people or groups'} with access
         </span>
         <span
-          class="rounded-lg px-3 py-2 {map.outsideCount ? 'bg-amber-500/15 text-amber-300' : 'bg-fulcra-teal/15 text-fulcra-teal'}"
+          class="rounded-lg px-3 py-2 {map.outsideCount ? 'bg-amber-500/15 text-amber-300' : 'bg-brand/15 text-brand'}"
           data-testid="outside-count"
         >
           {map.outsideCount ? `${map.outsideCount} outside ${AGENCY_NAME}` : `Nobody outside ${AGENCY_NAME}`}
@@ -265,7 +273,7 @@
                   <td class="px-4 py-3">
                     <span class="font-medium text-fulcra-white">{label(r)}</span>
                     {#if !r.inside}
-                      <span class="ml-2 rounded bg-amber-500/20 px-1.5 py-0.5 text-xs text-amber-300">Outside KS</span>
+                      <span class="ml-2 rounded bg-amber-500/20 px-1.5 py-0.5 text-xs text-amber-300">Outside</span>
                     {/if}
                     {#if r.kind === 'group' && !r.membersKnown}
                       <span class="ml-1 text-xs text-fulcra-gray">(members unknown)</span>
@@ -275,7 +283,7 @@
                   {#each map.clients as c}
                     <td class="px-4 py-3" data-client={c}>
                       {#if r.access[c]}
-                        <span class={r.access[c] === 'full' ? 'text-fulcra-teal' : 'text-amber-300'}>
+                        <span class={r.access[c] === 'full' ? 'text-brand' : 'text-amber-300'}>
                           {r.access[c] === 'full' ? '● Full' : '◐ Some files'}
                         </span>
                         <button
@@ -322,7 +330,7 @@
             />
           </label>
           <button
-            class="rounded-lg bg-fulcra-teal/20 px-4 py-2 text-sm text-fulcra-teal hover:bg-fulcra-teal/40 disabled:opacity-50"
+            class="rounded-lg bg-brand/20 px-4 py-2 text-sm text-brand hover:bg-brand/40 disabled:opacity-50"
             data-testid="share-button"
             disabled={!shareId.trim() || busy || !!pending}
             onclick={askGrant}>Review share…</button
@@ -330,7 +338,7 @@
         </div>
       </section>
 
-      <section class="mt-8 rounded-xl border border-fulcra-teal/30 bg-fulcra-black/40 p-5" data-testid="onboard-form">
+      <section class="mt-8 rounded-xl border border-brand/30 bg-fulcra-black/40 p-5" data-testid="onboard-form">
         <h2 class="font-semibold text-fulcra-white">Add a teammate</h2>
         <p class="mt-1 text-sm text-fulcra-gray">
           Ask them to sign in here first. The app shows them their Fulcra ID, and they send it to you. Paste it below,
@@ -358,15 +366,15 @@
           <legend class="text-sm text-fulcra-gray">Clients they can read</legend>
           <div class="mt-2 flex flex-wrap gap-2">
             {#each map.clients as c}
-              <label class="flex min-h-11 cursor-pointer items-center gap-2 rounded-lg border border-fulcra-gray/25 px-3 py-2 text-sm text-fulcra-white has-[:checked]:border-fulcra-teal/60 has-[:checked]:bg-fulcra-teal/10">
-                <input type="checkbox" value={c} bind:group={mateSlugs} class="accent-[#56d6b7]" />
+              <label class="flex min-h-11 cursor-pointer items-center gap-2 rounded-lg border border-fulcra-gray/25 px-3 py-2 text-sm text-fulcra-white has-[:checked]:border-brand/60 has-[:checked]:bg-brand/10">
+                <input type="checkbox" value={c} bind:group={mateSlugs} class="accent-brand" />
                 {titleCase(c)}
               </label>
             {/each}
           </div>
         </fieldset>
         <button
-          class="mt-4 min-h-11 rounded-lg bg-fulcra-teal/20 px-4 py-2 text-sm text-fulcra-teal hover:bg-fulcra-teal/40 disabled:opacity-50"
+          class="mt-4 min-h-11 rounded-lg bg-brand/20 px-4 py-2 text-sm text-brand hover:bg-brand/40 disabled:opacity-50"
           data-testid="onboard-button"
           disabled={!mateId.trim() || busy || !!pending}
           onclick={askOnboard}>Review…</button

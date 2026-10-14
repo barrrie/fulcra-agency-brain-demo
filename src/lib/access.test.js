@@ -4,7 +4,7 @@ import { shareReach, buildAccessMap } from './access.js';
 const ME = 'owner-id';
 const PRIYA = 'priya-id';
 const team = [{ fulcra_userid: ME, name: 'Morgan' }, { fulcra_userid: PRIYA, name: 'Priya' }];
-const clients = ['pebblebrook-pet-co', 'corvid-analytics', 'quarry-climbing'];
+const clients = ['corvid-analytics', 'pebblebrook-pet-co', 'quarry-climbing'];
 
 describe('shareReach', () => {
   it('matches the folder, its ancestors, and share_all_data as full', () => {
@@ -31,12 +31,12 @@ describe('buildAccessMap', () => {
   it('places team members inside and flags everyone else', () => {
     const shares = [
       { datashare_name: 'quarry-climbing-priya', fulcra_data_types: ['file:/demo-agency/clients/quarry-climbing'], permissions: [{ allowed_fulcra_userid: PRIYA }] },
-      { datashare_name: 'pebble-brief', fulcra_data_types: ['file:/demo-agency/clients/pebblebrook-pet-co/brief.md'], permissions: [{ allowed_fulcra_userid: 'stranger' }] },
+      { datashare_name: 'corvid-brief', fulcra_data_types: ['file:/demo-agency/clients/corvid-analytics/brief.md'], permissions: [{ allowed_fulcra_userid: 'stranger' }] },
       { datashare_name: 'health', fulcra_data_types: ['HeartRate'], permissions: [{ allowed_fulcra_userid: 'unrelated' }] }
     ];
     const m = buildAccessMap(clients, shares, team);
     expect(m.rows.map((r) => r.id)).toEqual(['stranger', PRIYA]); // outside first; unrelated share ignored
-    expect(m.rows[0]).toMatchObject({ inside: false, access: { 'pebblebrook-pet-co': 'partial' } });
+    expect(m.rows[0]).toMatchObject({ inside: false, access: { 'corvid-analytics': 'partial' } });
     expect(m.rows[1]).toMatchObject({ inside: true, name: 'Priya', access: { 'quarry-climbing': 'full' } });
     expect(m.outsideCount).toBe(1);
   });
@@ -45,13 +45,13 @@ describe('buildAccessMap', () => {
     const shares = [
       { datashare_name: 'g1', fulcra_data_types: ['file:/demo-agency'], group_permissions: [{ allowed_group_id: 'g-team' }, { allowed_group_id: 'g-mixed' }, { allowed_group_id: 'g-unknown' }] }
     ];
-    const groups = { 'g-team': { name: 'Team', participants: [ME, PRIYA] }, 'g-mixed': { name: 'Mixed', participants: [ME, 'x'] } };
+    const groups = { 'g-team': { name: 'Northlight', participants: [ME, PRIYA] }, 'g-mixed': { name: 'Mixed', participants: [ME, 'x'] } };
     const m = buildAccessMap(clients, shares, team, groups);
     const byId = Object.fromEntries(m.rows.map((r) => [r.id, r]));
     expect(byId['g-team'].inside).toBe(true);
     expect(byId['g-mixed'].inside).toBe(false);
     expect(byId['g-unknown']).toMatchObject({ inside: false, membersKnown: false });
-    expect(byId['g-team'].access).toEqual({ 'pebblebrook-pet-co': 'full', 'corvid-analytics': 'full', 'quarry-climbing': 'full' });
+    expect(byId['g-team'].access).toEqual({ 'corvid-analytics': 'full', 'pebblebrook-pet-co': 'full', 'quarry-climbing': 'full' });
   });
 });
 
@@ -73,10 +73,10 @@ describe('grant and revoke helpers', () => {
     expect(plan).toEqual({ action: 'update', body: { permissions: [{ allowed_fulcra_userid: 'b' }], group_permissions: [{ allowed_group_id: 'g' }] } });
   });
   it('records which shares grant access, for revoke', () => {
-    const m = buildAccessMap(['quarry-climbing', 'corvid-analytics'], [
+    const m = buildAccessMap(['quarry-climbing', 'pebblebrook-pet-co'], [
       { datashare_id: 's1', datashare_name: 'one', fulcra_data_types: ['file:/demo-agency/clients'], permissions: [{ allowed_fulcra_userid: 'x' }] }
     ], []);
-    expect(m.rows[0].via['quarry-climbing'][0]).toMatchObject({ id: 's1', recipients: 1, clients: ['quarry-climbing', 'corvid-analytics'] });
+    expect(m.rows[0].via['quarry-climbing'][0]).toMatchObject({ id: 's1', recipients: 1, clients: ['quarry-climbing', 'pebblebrook-pet-co'] });
   });
 });
 
