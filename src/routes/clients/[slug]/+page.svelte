@@ -153,7 +153,7 @@
   <LoginDeviceFlow />
 {:else}
   <main class="mx-auto w-full max-w-4xl px-4 py-8">
-    <a href="/" class="text-sm text-fulcra-gray hover:text-fulcra-teal">← All clients</a>
+    <a href="/" class="text-sm text-fulcra-gray hover:text-brand">← All clients</a>
 
     {#if loadError}
       <p class="mt-6 rounded-lg border border-red-400/40 bg-red-500/10 p-4 text-red-300">{loadError}</p>
@@ -166,7 +166,7 @@
         {#each brain.sections as s (s.file)}
           <button
             class="rounded-lg px-3 py-1.5 text-sm transition {active === s.file
-              ? 'bg-fulcra-teal/25 text-fulcra-teal'
+              ? 'bg-brand/25 text-brand'
               : 'text-fulcra-gray hover:bg-fulcra-gray/10 hover:text-fulcra-white'}"
             aria-current={active === s.file ? 'page' : undefined}
             data-file={s.file}
@@ -178,7 +178,7 @@
       {#if notice}
         <p
           class="mt-4 rounded-lg p-3 text-sm {notice.ok
-            ? 'border border-fulcra-teal/40 bg-fulcra-teal/10 text-fulcra-teal'
+            ? 'border border-brand/40 bg-brand/10 text-brand'
             : 'border border-red-400/40 bg-red-500/10 text-red-300'}"
           data-testid="notice"
         >
@@ -191,14 +191,14 @@
           {#if current?.uploadedAt}Last saved {fmt(current.uploadedAt)}{/if}
         </span>
         {#if brain?.readOnly}
-          <span class="rounded-lg bg-fulcra-gray/10 px-3 py-1.5" data-testid="read-only">Read-only</span>
+          <span class="rounded-lg bg-fulcra-gray/10 px-3 py-1.5" data-testid="read-only">{brain.demo ? 'Demo · read-only' : 'Read-only'}</span>
         {:else if !editing}
           <div class="flex gap-2">
             <button class="rounded-lg px-3 py-1.5 hover:bg-fulcra-gray/10" data-testid="history-toggle" onclick={toggleHistory}
               >{showHistory ? 'Hide history' : 'History'}</button
             >
             <button
-              class="rounded-lg bg-fulcra-teal/20 px-3 py-1.5 text-fulcra-teal hover:bg-fulcra-teal/40"
+              class="rounded-lg bg-brand/20 px-3 py-1.5 text-brand hover:bg-brand/40"
               data-testid="edit"
               onclick={startEdit}>Edit</button
             >
@@ -218,11 +218,11 @@
                 <li class="flex items-center justify-between gap-2" data-version={v.id} data-state={v.state}>
                   <span class="text-fulcra-white">
                     {fmt(v.uploadedAt)}
-                    {#if v.state === 'uploaded'}<span class="ml-2 rounded bg-fulcra-teal/20 px-1.5 text-xs text-fulcra-teal">current</span>{/if}
+                    {#if v.state === 'uploaded'}<span class="ml-2 rounded bg-brand/20 px-1.5 text-xs text-brand">current</span>{/if}
                   </span>
                   {#if v.state !== 'uploaded'}
                     <button
-                      class="rounded px-2 py-1 text-xs text-fulcra-teal hover:bg-fulcra-teal/15"
+                      class="rounded px-2 py-1 text-xs text-brand hover:bg-brand/15"
                       data-testid="restore"
                       onclick={() => (restoreTarget = v)}>Restore</button
                     >
@@ -277,7 +277,7 @@
           {/if}
           <div class="mt-3 flex gap-2">
             <button
-              class="rounded-lg bg-fulcra-teal/25 px-4 py-2 text-sm font-semibold text-fulcra-teal hover:bg-fulcra-teal/40 disabled:opacity-50"
+              class="rounded-lg bg-brand/25 px-4 py-2 text-sm font-semibold text-brand hover:bg-brand/40 disabled:opacity-50"
               data-testid="save"
               disabled={saving || draft === (current?.content ?? '')}
               onclick={() => save(false)}>{saving ? 'Saving…' : 'Save new version'}</button
@@ -313,7 +313,7 @@
   .brain-md :global(ul) { list-style: disc; padding-left: 1.25rem; margin: 0.4rem 0 0.8rem; }
   .brain-md :global(ol) { list-style: decimal; padding-left: 1.25rem; margin: 0.4rem 0 0.8rem; }
   .brain-md :global(li) { margin: 0.2rem 0; }
-  .brain-md :global(a) { color: #5eead4; text-decoration: underline; word-break: break-all; }
+  .brain-md :global(a) { color: #ff8cc6; text-decoration: underline; word-break: break-all; }
   .brain-md :global(strong) { color: #fafafa; }
   .brain-md :global(code) { background: rgba(255,255,255,0.08); padding: 0.1rem 0.3rem; border-radius: 4px; font-size: 0.9em; }
   .brain-md :global(table) { width: 100%; border-collapse: collapse; margin: 0.8rem 0 1.2rem; font-size: 0.92rem; display: block; overflow-x: auto; }

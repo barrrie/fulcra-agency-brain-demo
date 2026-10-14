@@ -4,4 +4,6 @@
 - Demo data in `demo/` is fictional. Never put real client, person or account data in this repo.
 - Never show or store pricing or commercial terms in a brain, and never reference one client inside another client's brain.
 - Nothing is shared without explicit owner confirmation.
-- Viewer restrictions are enforced server-side. Any new write route must call `requireOwner`.
+- Viewer restrictions are enforced server-side. Any new write route must call `requireOwner` (it also refuses every write in demo mode). Owner-only reads (Access, Console) use `requireOwnerView`, which lets demo visitors see the owner's view.
+- Demo fixtures in `demo/*.json` store times as hours ago or weekly slots, never fixed dates, so the demo doesn't go stale. Paths in them are relative to `AGENCY_ROOT`.
+- The UI is ported from the production agency brain. Keep agency names, owner names and paths in `src/lib/config.js`, and the accent in the `--color-brand` token; never hard-code them.

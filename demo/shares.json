@@ -1,0 +1,79 @@
+{
+  "fictional": true,
+  "note": "Fulcra datashares as GET /user/v1/datashare returns them. Paths are relative to AGENCY_ROOT.",
+  "groups": {
+    "00000000-0000-4000-9000-000000000001": {
+      "name": "Northlight strategists",
+      "participants": [
+        "00000000-0000-4000-8000-000000000001",
+        "00000000-0000-4000-8000-000000000002",
+        "00000000-0000-4000-8000-000000000003"
+      ]
+    }
+  },
+  "shares": [
+    {
+      "datashare_id": "00000000-0000-4000-a000-000000000001",
+      "datashare_name": "Brain: pebblebrook-pet-co -> Priya",
+      "fulcra_data_types": [
+        "file:clients/pebblebrook-pet-co"
+      ],
+      "permissions": [
+        {
+          "allowed_fulcra_userid": "00000000-0000-4000-8000-000000000002"
+        }
+      ]
+    },
+    {
+      "datashare_id": "00000000-0000-4000-a000-000000000002",
+      "datashare_name": "Brain: quarry-climbing -> Priya, Jules",
+      "fulcra_data_types": [
+        "file:clients/quarry-climbing"
+      ],
+      "permissions": [
+        {
+          "allowed_fulcra_userid": "00000000-0000-4000-8000-000000000002"
+        },
+        {
+          "allowed_fulcra_userid": "00000000-0000-4000-8000-000000000003"
+        }
+      ]
+    },
+    {
+      "datashare_id": "00000000-0000-4000-a000-000000000003",
+      "datashare_name": "Brain: pebblebrook-pet-co -> strategists",
+      "fulcra_data_types": [
+        "file:clients/pebblebrook-pet-co"
+      ],
+      "group_permissions": [
+        {
+          "allowed_group_id": "00000000-0000-4000-9000-000000000001"
+        }
+      ]
+    },
+    {
+      "datashare_id": "00000000-0000-4000-a000-000000000004",
+      "datashare_name": "Brain: corvid-analytics -> Jules",
+      "fulcra_data_types": [
+        "file:clients/corvid-analytics"
+      ],
+      "permissions": [
+        {
+          "allowed_fulcra_userid": "00000000-0000-4000-8000-000000000003"
+        }
+      ]
+    },
+    {
+      "datashare_id": "00000000-0000-4000-a000-000000000005",
+      "datashare_name": "Corvid brief for Signalboard (Mel)",
+      "fulcra_data_types": [
+        "file:clients/corvid-analytics/brief.md"
+      ],
+      "permissions": [
+        {
+          "allowed_fulcra_userid": "7c2e91d4-3b6a-4f0e-9d21-6a8f0c5e2b17"
+        }
+      ]
+    }
+  ]
+}

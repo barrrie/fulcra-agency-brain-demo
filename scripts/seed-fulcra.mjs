@@ -6,11 +6,14 @@
  *   FULCRA_ACCESS_TOKEN=... node scripts/seed-fulcra.mjs [--root /demo-agency]
  *
  * Writes <root>/clients/<slug>/<file>.md for every file in demo/brains, plus
- * <root>/team.json. Existing files get a new version; nothing is deleted.
+ * <root>/team.json and <root>/signals.json (meetings dated from today, so
+ * re-run it to refresh them). Existing files get a new version; nothing is
+ * deleted and nothing is shared.
  */
 import { readdir, readFile } from 'node:fs/promises';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { materializeSignals } from '../src/lib/demo.js';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const demoDir = join(here, '..', 'demo');
@@ -50,4 +53,6 @@ for (const slug of await readdir(join(demoDir, 'brains'))) {
   }
 }
 await upload(root, 'team.json', await readFile(join(demoDir, 'team.json'), 'utf8'), 'application/json');
+const signals = materializeSignals(JSON.parse(await readFile(join(demoDir, 'signals.json'), 'utf8')));
+await upload(root, 'signals.json', JSON.stringify(signals, null, 2) + '\n', 'application/json');
 console.log('Done. Replace the placeholder IDs in team.json with real Fulcra IDs before sharing.');

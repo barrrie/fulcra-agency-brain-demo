@@ -57,6 +57,10 @@
   --color-fulcra-red: #ff3b30;
   --color-fulcra-orange: #ff9500;
 
+  /* Brand accent. Change these two to re-skin the app for an agency. */
+  --color-brand: #ff2d95;
+  --color-brand-soft: #ff8cc6;
+
   --font-sans: Rubik;
   --font-serif: Rubik;
 }
@@ -67,6 +71,6 @@
   default: true;
   color-scheme: dark;
 
-  --color-primary: var(--color-fulcra-teal);
+  --color-primary: var(--color-brand);
   --color-secondary: var(--color-fulcra-gray);
 }

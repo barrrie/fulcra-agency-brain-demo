@@ -3,57 +3,41 @@ import { error } from '@sveltejs/kit';
 import { FulcraAPI } from '$lib/api-client.js';
 import { isOwner } from '$lib/server/harness-owner.js';
 import { env as privateEnv } from '$env/dynamic/private';
+import { SLUG, BRAIN_FILES, slugify, starterFiles, displayName } from '$lib/clients.js';
+import { AGENCY_ROOT, CLIENTS_ROOT, DEMO_FIXTURES } from '$lib/server/settings.js';
+import { demoView, demoTeammate, demoClients, demoSummaries, demoBrain } from '$lib/server/demo.js';
 
-/** Agency folder in Fulcra (team.json lives here). Override with AGENCY_ROOT. */
-export const AGENCY_ROOT = (privateEnv.AGENCY_ROOT || '/demo-agency').replace(/\/+$/, '');
+export { AGENCY_ROOT, CLIENTS_ROOT, DEMO_FIXTURES, BRAIN_FILES, displayName };
 
-/** Root folder in Fulcra that holds one sub-folder per client brain. */
-export const CLIENTS_ROOT = `${AGENCY_ROOT}/clients`;
-
-/**
- * DEMO_FIXTURES=true serves the fictional brains bundled in /demo/brains,
- * read-only, to anyone signed in. No Fulcra files or shares are needed.
- */
-export const DEMO_FIXTURES = /^(1|true|yes)$/i.test(privateEnv.DEMO_FIXTURES || '');
-
-const FIXTURES = import.meta.glob('/demo/brains/*/*.md', { query: '?raw', import: 'default', eager: true });
-
-function fixtureClients() {
-  return [...new Set(Object.keys(FIXTURES).map((p) => p.split('/')[3]))].sort();
-}
-
-function fixtureBrain(slug) {
-  if (!fixtureClients().includes(slug)) throw error(404, 'Client not found');
-  const sections = BRAIN_FILES.map(({ file, label }) => ({
-    file,
-    label,
-    content: FIXTURES[`/demo/brains/${slug}/${file}`] ?? null,
-    versionId: null,
-    uploadedAt: null
-  }));
-  return { slug, name: displayName(slug), sections, readOnly: true, demo: true };
-}
-
-/** The seven brain files, in reading order. */
-export const BRAIN_FILES = [
-  { file: 'brief.md', label: 'Brief' },
-  { file: 'people.md', label: 'People' },
-  { file: 'voice-and-guardrails.md', label: 'Voice & guardrails' },
-  { file: 'playbook.md', label: 'Playbook' },
-  { file: 'decisions.md', label: 'Decisions' },
-  { file: 'log.md', label: 'Log' },
-  { file: 'links.md', label: 'Links' }
-];
-
-const SLUG = /^[a-z0-9][a-z0-9-]{0,63}$/;
-
-/** Throws 401/403 unless the caller is the owner; returns the access token. */
+/** Throws 401/403 unless the caller is the owner; returns the access token. Use for writes. */
 export function requireOwner(cookies) {
   const token = cookies.get('fulcra_access_token');
   if (!token) throw error(401, 'Not authenticated');
-  if (DEMO_FIXTURES) throw error(403, 'Demo mode is read-only');
+  if (DEMO_FIXTURES) throw error(403, 'This is a demo, so nothing is changed. In a real workspace this saves to Fulcra.');
   if (!isOwner(token)) throw error(403, 'Forbidden');
   return token;
+}
+
+/**
+ * Owner-only reads (access map, Console). In demo mode the owner's view is
+ * open to anyone signed in, read-only. Returns { token, demo }.
+ */
+export function requireOwnerView(cookies) {
+  const token = cookies.get('fulcra_access_token');
+  if (!token) throw error(401, 'Not authenticated');
+  if (DEMO_FIXTURES) {
+    if (demoView(cookies) !== 'owner') throw error(403, 'Owner only');
+    return { token, demo: true };
+  }
+  if (!isOwner(token)) throw error(403, 'Forbidden');
+  return { token, demo: false };
+}
+
+/** Whether this caller sees the owner's screens (nav, Access, Console). */
+export function seesOwnerView(cookies) {
+  const token = cookies.get('fulcra_access_token');
+  if (!token) return false;
+  return DEMO_FIXTURES ? demoView(cookies) === 'owner' : isOwner(token);
 }
 
 /**
@@ -64,7 +48,10 @@ export function requireOwner(cookies) {
 export function requireSignedIn(cookies) {
   const token = cookies.get('fulcra_access_token');
   if (!token) throw error(401, 'Not authenticated');
-  if (DEMO_FIXTURES) return { token, owner: false, asUser: 'demo' };
+  if (DEMO_FIXTURES) {
+    const owner = demoView(cookies) === 'owner';
+    return { token, owner, asUser: owner ? null : demoTeammate().fulcra_userid, demo: true };
+  }
   const owner = isOwner(token);
   const ownerId = privateEnv.OWNER_USER_ID;
   if (!owner && !ownerId) throw error(500, 'Owner not configured');
@@ -97,7 +84,7 @@ function folderName(f) {
 
 /** Client slugs under CLIENTS_ROOT, sorted. */
 export async function listClients(token, asUser = null) {
-  if (DEMO_FIXTURES) return fixtureClients();
+  if (DEMO_FIXTURES) return demoClients(asUser);
   const listing = await listFolderOrEmpty(token, CLIENTS_ROOT, asUser);
   return (listing?.folders || [])
     .map(folderName)
@@ -105,12 +92,64 @@ export async function listClients(token, asUser = null) {
     .sort();
 }
 
-/** Turn a slug into a display name ("corvid-analytics" -> "Corvid Analytics"). */
-export function displayName(slug) {
-  return slug
-    .split('-')
-    .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
-    .join(' ');
+/**
+ * Clients with a small summary each: how many of the seven brain files exist
+ * and when the brain last changed. One folder listing per client.
+ */
+export async function listClientSummaries(token, asUser = null) {
+  if (DEMO_FIXTURES) return demoSummaries(asUser);
+  const slugs = await listClients(token, asUser);
+  return Promise.all(
+    slugs.map(async (slug) => {
+      const listing = await listFolderOrEmpty(token, `${CLIENTS_ROOT}/${slug}`, asUser);
+      const files = (listing?.files || []).filter((f) => FILE_NAMES.has(f.name));
+      const updatedAt = files.map((f) => f.uploaded_at).filter(Boolean).sort().pop() ?? null;
+      return {
+        slug,
+        name: displayName(slug),
+        present: files.map((f) => f.name),
+        filesPresent: files.length,
+        filesTotal: BRAIN_FILES.length,
+        updatedAt
+      };
+    })
+  );
+}
+
+/**
+ * Create a new client brain: the seven brain files from starter templates.
+ * Refuses an existing client rather than overwriting it. Shares nothing.
+ */
+export async function createClient(token, name) {
+  const clean = typeof name === 'string' ? name.trim() : '';
+  if (!clean || clean.length > 80) throw error(400, 'Give the client a name (up to 80 characters).');
+  const slug = slugify(clean);
+  if (!SLUG.test(slug)) throw error(400, 'That name has no letters or numbers to make a folder from.');
+  // The clients root may not exist yet before the very first client.
+  const existing = await listClients(token).catch((e) => {
+    if (/\b404\b/.test(String(e?.message))) return [];
+    throw e;
+  });
+  if (existing.includes(slug)) throw error(409, `A client called ${displayName(slug)} already exists.`);
+
+  const folder = `${CLIENTS_ROOT}/${slug}`;
+  const files = starterFiles(displayName(slug));
+  let done = 0;
+  for (const { file } of BRAIN_FILES) {
+    try {
+      await uploadFile(token, folder, file, files[file], 'text/markdown');
+    } catch {
+      // A retry would hit 409, so say what exists. Empty sections can be filled in with Edit.
+      throw error(
+        502,
+        done
+          ? `Fulcra stopped after ${done} of 7 files. Open ${displayName(slug)} and fill the empty sections with Edit.`
+          : 'Fulcra did not accept the new files. Nothing was created.'
+      );
+    }
+    done++;
+  }
+  return { slug, name: displayName(slug), folder, files: BRAIN_FILES.map((f) => f.file) };
 }
 
 /**
@@ -119,7 +158,7 @@ export function displayName(slug) {
  */
 export async function readBrain(token, slug, asUser = null) {
   if (!SLUG.test(slug)) throw error(400, 'Invalid client');
-  if (DEMO_FIXTURES) return fixtureBrain(slug);
+  if (DEMO_FIXTURES) return demoBrain(slug, asUser);
   const folder = `${CLIENTS_ROOT}/${slug}`;
   const listing = await listFolderOrEmpty(token, folder, asUser);
   const files = listing?.files || [];

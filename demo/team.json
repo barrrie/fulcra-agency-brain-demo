@@ -10,7 +10,12 @@
       "fulcra_userid": "00000000-0000-4000-8000-000000000002",
       "name": "Priya",
       "role": "strategist"
+    },
+    {
+      "fulcra_userid": "00000000-0000-4000-8000-000000000003",
+      "name": "Jules",
+      "role": "strategist"
     }
   ],
-  "pending": []
+  "pending": [{ "name": "Sol" }]
 }
