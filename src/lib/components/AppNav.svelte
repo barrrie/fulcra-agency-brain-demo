@@ -65,8 +65,9 @@
     class="app-nav border-b border-fulcra-black-25 bg-fulcra-black/80 backdrop-blur"
     aria-label="Main"
   >
-    <div class="mx-auto flex h-14 max-w-5xl items-center gap-3 px-4">
-      <a href="/" class="flex shrink-0 items-center gap-2" aria-label="{APP_NAME} home">
+    <!-- Phones: links get their own row under the brand bar so nothing is squeezed. -->
+    <div class="mx-auto flex max-w-5xl flex-wrap items-center gap-x-3 px-4 sm:h-14 sm:flex-nowrap">
+      <a href="/" class="flex h-14 shrink-0 items-center gap-2" aria-label="{APP_NAME} home">
         <span
           class="grid h-7 w-7 place-items-center rounded-md bg-brand text-[13px] font-bold text-fulcra-black"
           >{initials(AGENCY_NAME)}</span
@@ -78,7 +79,9 @@
       </a>
 
       {#if isOwner}
-        <div class="no-scrollbar flex min-w-0 flex-1 items-center gap-1 overflow-x-auto sm:ml-4">
+        <div
+          class="no-scrollbar order-last -mx-1 flex w-full min-w-0 items-center gap-1 overflow-x-auto pb-2 sm:order-none sm:mx-0 sm:ml-4 sm:w-auto sm:flex-1 sm:pb-0"
+        >
           {#each links as l (l.href)}
             {@const on = l.match(page.url.pathname)}
             <a
@@ -110,7 +113,7 @@
         <div class="flex-1"></div>
       {/if}
 
-      <div class="flex shrink-0 items-center gap-1">
+      <div class="ml-auto flex shrink-0 items-center gap-1 sm:ml-0">
         {#if demo}
           <div
             class="flex items-center rounded-lg border border-white/10 p-0.5 text-xs"
