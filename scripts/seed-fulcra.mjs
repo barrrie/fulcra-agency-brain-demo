@@ -5,7 +5,7 @@
  *
  *   FULCRA_ACCESS_TOKEN=... node scripts/seed-fulcra.mjs [--root /demo-agency]
  *
- * Writes <root>/clients/<slug>/<file>.md for every file in demo/brains, plus
+ * Writes <root>/clients/<slug>/<file> for every file in demo/brains (markdown plus asana.json), plus
  * <root>/team.json. Existing files get a new version; nothing is deleted.
  */
 import { readdir, readFile } from 'node:fs/promises';
@@ -46,7 +46,8 @@ console.log(`Seeding fictional brains into ${root}`);
 for (const slug of await readdir(join(demoDir, 'brains'))) {
   for (const file of await readdir(join(demoDir, 'brains', slug))) {
     const text = await readFile(join(demoDir, 'brains', slug, file), 'utf8');
-    await upload(`${root}/clients/${slug}`, file, text, 'text/markdown');
+    const type = file.endsWith('.json') ? 'application/json' : 'text/markdown';
+    await upload(`${root}/clients/${slug}`, file, text, type);
   }
 }
 await upload(root, 'team.json', await readFile(join(demoDir, 'team.json'), 'utf8'), 'application/json');
