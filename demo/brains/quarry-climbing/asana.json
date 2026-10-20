@@ -1,0 +1,112 @@
+{
+  "fictional": true,
+  "source": "asana",
+  "project": "Quarry Climbing \u00b7 Reddit pilot",
+  "merged_at": "2026-10-19T08:00:00Z",
+  "tasks": [
+    {
+      "gid": "12000000000101",
+      "name": "Kickoff call",
+      "due_on": "2026-09-08",
+      "completed": true,
+      "assignee": "Morgan",
+      "section": "Setup",
+      "url": "https://app.asana.com/0/12000000000001/12000000000101"
+    },
+    {
+      "gid": "12000000000102",
+      "name": "Set up local-sub listening (both cities)",
+      "due_on": "2026-09-29",
+      "completed": true,
+      "assignee": "Priya",
+      "section": "Setup",
+      "url": "https://app.asana.com/0/12000000000001/12000000000102"
+    },
+    {
+      "gid": "12000000000103",
+      "name": "Chase route-setting photos from Felix",
+      "due_on": "2026-10-14",
+      "completed": false,
+      "assignee": "Priya",
+      "section": "Content",
+      "url": "https://app.asana.com/0/12000000000001/12000000000103"
+    },
+    {
+      "gid": "12000000000104",
+      "name": "Draft first route-setting post",
+      "due_on": "2026-10-22",
+      "completed": false,
+      "assignee": "Priya",
+      "section": "Content",
+      "url": "https://app.asana.com/0/12000000000001/12000000000104"
+    },
+    {
+      "gid": "12000000000105",
+      "name": "Nadia approval: route-setting post",
+      "due_on": "2026-10-24",
+      "completed": false,
+      "assignee": "Morgan",
+      "section": "Approvals",
+      "url": "https://app.asana.com/0/12000000000001/12000000000105"
+    },
+    {
+      "gid": "12000000000106",
+      "name": "Get November event dates from gym managers",
+      "due_on": "2026-10-27",
+      "completed": false,
+      "assignee": "Priya",
+      "section": "Local subs",
+      "url": "https://app.asana.com/0/12000000000001/12000000000106"
+    },
+    {
+      "gid": "12000000000107",
+      "name": "Biweekly call",
+      "due_on": "2026-11-02",
+      "completed": false,
+      "assignee": "Morgan",
+      "section": "Calls",
+      "url": "https://app.asana.com/0/12000000000001/12000000000107"
+    },
+    {
+      "gid": "12000000000108",
+      "name": "Check signup attribution numbers",
+      "due_on": "2026-11-09",
+      "completed": false,
+      "assignee": "Morgan",
+      "section": "Reporting",
+      "url": "https://app.asana.com/0/12000000000001/12000000000108"
+    },
+    {
+      "gid": "12000000000109",
+      "name": "Pilot midpoint readout",
+      "due_on": "2026-11-16",
+      "completed": false,
+      "assignee": "Morgan",
+      "section": "Reporting",
+      "url": "https://app.asana.com/0/12000000000001/12000000000109"
+    },
+    {
+      "gid": "12000000000110",
+      "name": "Winter beginner-night thread ideas",
+      "due_on": null,
+      "completed": false,
+      "assignee": "Priya",
+      "section": "Backlog",
+      "url": "https://app.asana.com/0/12000000000001/12000000000110"
+    }
+  ],
+  "left_out": [
+    {
+      "gid": "1200000009101",
+      "reason": "Internal agency admin"
+    },
+    {
+      "gid": "1200000009102",
+      "reason": "Internal agency admin"
+    },
+    {
+      "gid": "1200000009103",
+      "reason": "Duplicate of a merged task"
+    }
+  ]
+}
