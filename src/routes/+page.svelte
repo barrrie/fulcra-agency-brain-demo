@@ -3,6 +3,7 @@
   import { user } from '$lib/user';
   import { onMount } from 'svelte';
   import LoginDeviceFlow from '$lib/components/LoginDeviceFlow.svelte';
+  import DisplayName from '$lib/components/DisplayName.svelte';
 
   let clients = $state(null);
   let role = $state(null);
@@ -50,15 +51,18 @@
         <h1 class="text-3xl font-bold text-fulcra-white">Client brains</h1>
         <p class="mt-1 text-fulcra-gray">What an account strategist needs to know, per client.</p>
       </div>
-      <div class="flex gap-2">
-        <a
-          href="/map"
-          class="rounded-lg border border-fulcra-teal/30 px-4 py-2 text-sm text-fulcra-teal hover:bg-fulcra-teal/20">Map</a
-        >
-        <button
-          class="rounded-lg bg-fulcra-teal/20 px-4 py-2 text-sm text-fulcra-teal hover:bg-fulcra-teal/50"
-          onclick={user.logout}>Sign out</button
-        >
+      <div class="flex flex-col items-end gap-2">
+        <div class="flex gap-2">
+          <a
+            href="/map"
+            class="rounded-lg border border-fulcra-teal/30 px-4 py-2 text-sm text-fulcra-teal hover:bg-fulcra-teal/20">Map</a
+          >
+          <button
+            class="rounded-lg bg-fulcra-teal/20 px-4 py-2 text-sm text-fulcra-teal hover:bg-fulcra-teal/50"
+            onclick={user.logout}>Sign out</button
+          >
+        </div>
+        <DisplayName />
       </div>
     </header>
 

@@ -6,6 +6,9 @@
   import LoginDeviceFlow from '$lib/components/LoginDeviceFlow.svelte';
   import { renderMarkdown } from '$lib/markdown.js';
   import { lintBrain } from '$lib/lint.js';
+  import AsanaPanel from '$lib/components/AsanaPanel.svelte';
+
+  const ASANA_TAB = 'asana';
 
   let brain = $state(null);
   let loadError = $state(null);
@@ -176,6 +179,15 @@
             onclick={() => selectTab(s.file)}>{s.label}</button
           >
         {/each}
+        <button
+          class="ml-auto rounded-lg px-3 py-1.5 text-sm transition {active === ASANA_TAB
+            ? 'bg-fulcra-teal/25 text-fulcra-teal'
+            : 'text-fulcra-gray hover:bg-fulcra-gray/10 hover:text-fulcra-white'}"
+          aria-current={active === ASANA_TAB ? 'page' : undefined}
+          data-file={ASANA_TAB}
+          onclick={() => selectTab(ASANA_TAB)}
+          >Asana{#if brain.asana}<span class="ml-1.5 rounded bg-fulcra-gray/15 px-1.5 text-xs">{brain.asana.tasks.length}</span>{/if}</button
+        >
       </nav>
 
       {#if notice}
@@ -189,6 +201,9 @@
         </p>
       {/if}
 
+      {#if active === ASANA_TAB}
+        <AsanaPanel data={brain.asana} />
+      {:else}
       <div class="mt-4 flex items-center justify-between gap-2 text-sm text-fulcra-gray">
         <span data-testid="version-info">
           {#if current?.uploadedAt}Last saved {fmt(current.uploadedAt)}{/if}
@@ -303,6 +318,7 @@
             <p class="text-fulcra-gray">This section is empty. Nothing at {current?.file} yet.</p>
           {/if}
         </article>
+      {/if}
       {/if}
     {/if}
   </main>
