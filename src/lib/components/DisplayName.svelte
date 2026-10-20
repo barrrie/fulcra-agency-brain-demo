@@ -1,18 +1,12 @@
 <script>
   import { user } from '$lib/user';
-  import {
-    MAX_DISPLAY_NAME,
-    fulcraName,
-    resolveName,
-    loadDisplayName,
-    saveDisplayName
-  } from '$lib/display-name.js';
+  import { MAX_DISPLAY_NAME, fulcraName, resolveName, displayNames } from '$lib/display-name.js';
 
   const userId = $derived($user.auth0UserInfo?.['fulcradynamics.com/userid'] ?? null);
   const accountName = $derived(fulcraName($user.auth0UserInfo, $user.fulcraUserInfo));
 
-  // Re-read when the signed-in person changes; overwritten locally on save.
-  let displayName = $derived(loadDisplayName(userId));
+  $effect(() => displayNames.load(userId));
+  const displayName = $derived((userId && $displayNames[userId]) || '');
   let editing = $state(false);
   let draft = $state('');
   let problem = $state(/** @type {string | null} */ (null));
@@ -29,7 +23,7 @@
   function save(e) {
     e.preventDefault();
     try {
-      displayName = saveDisplayName(userId, draft);
+      displayNames.save(userId, draft);
       editing = false;
     } catch (err) {
       problem = err instanceof Error ? err.message : String(err);

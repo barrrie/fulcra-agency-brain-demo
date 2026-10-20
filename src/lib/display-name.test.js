@@ -4,8 +4,10 @@ import {
   fulcraName,
   resolveName,
   loadDisplayName,
-  saveDisplayName
+  saveDisplayName,
+  createDisplayNames
 } from './display-name.js';
+import { get } from 'svelte/store';
 
 const ID = '00000000-0000-4000-8000-000000000002';
 
@@ -74,5 +76,18 @@ describe('save and load', () => {
     };
     expect(loadDisplayName(ID, broken)).toBe('');
     expect(saveDisplayName(ID, 'Pri', broken)).toBe('Pri');
+  });
+});
+
+describe('displayNames store', () => {
+  it('loads once per ID and shares saves with every subscriber', () => {
+    const s = memoryStorage();
+    s.setItem(`displayName:${ID}`, 'Pri');
+    const names = createDisplayNames(s);
+    names.load(ID);
+    expect(get(names)[ID]).toBe('Pri');
+    names.save(ID, 'Priya R');
+    expect(get(names)[ID]).toBe('Priya R');
+    expect(s.getItem(`displayName:${ID}`)).toBe('Priya R');
   });
 });

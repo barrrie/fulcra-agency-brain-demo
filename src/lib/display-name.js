@@ -6,6 +6,8 @@
  * not in Fulcra, so a teammate never needs a write route to set it.
  */
 
+import { writable } from 'svelte/store';
+
 export const MAX_DISPLAY_NAME = 60;
 
 /**
@@ -84,3 +86,31 @@ export function saveDisplayName(userId, value, storage = globalThis.localStorage
   }
   return clean;
 }
+
+/**
+ * Saved display names by Fulcra ID, shared so every view (home page, owner
+ * nav) updates as soon as one is saved.
+ * @param {Pick<Storage, 'getItem' | 'setItem' | 'removeItem'>} [storage]
+ */
+export function createDisplayNames(storage = globalThis.localStorage) {
+  const { subscribe, update } = writable(/** @type {Record<string, string>} */ ({}));
+  return {
+    subscribe,
+    /** @param {string | null} userId */
+    load(userId) {
+      if (!userId) return;
+      update((m) => (userId in m ? m : { ...m, [userId]: loadDisplayName(userId, storage) }));
+    },
+    /**
+     * @param {string | null} userId
+     * @param {unknown} value
+     */
+    save(userId, value) {
+      const clean = saveDisplayName(userId, value, storage);
+      if (userId) update((m) => ({ ...m, [userId]: clean }));
+      return clean;
+    }
+  };
+}
+
+export const displayNames = createDisplayNames();

@@ -1,9 +1,16 @@
 <script lang="ts">
   import { user } from '$lib/user';
+  import { displayNames, resolveName } from '$lib/display-name.js';
 
   // The owner's id lives server-side only; ask the backend whether we're the
   // owner (re-checking whenever auth state changes) instead of comparing ids.
   let isOwner = $state(false);
+
+  const userId = $derived($user.auth0UserInfo?.['fulcradynamics.com/userid'] ?? null);
+  $effect(() => displayNames.load(userId));
+  const shown = $derived(
+    resolveName(userId ? $displayNames[userId] : '', $user.auth0UserInfo, $user.fulcraUserInfo)
+  );
 
   async function checkOwner() {
     try {
@@ -47,8 +54,8 @@
             Harness Dashboard
           </a>
         </div>
-        <div class="text-fulcra-gray text-sm">
-          Owner
+        <div class="text-fulcra-gray text-sm" data-testid="nav-name">
+          <span class="text-fulcra-white">{shown}</span> · Owner
         </div>
       </div>
     </div>
