@@ -25,7 +25,7 @@ The slides exist to set up the demo. If you're running long, cut talk from the s
 
 **Say:**
 - The day I made my first hire, I found out my "system" was me. Nothing was written down in a way someone else could pick up.
-- And I didn't want to just open the floodgates. They need the full picture on her clients, nothing on the clients they aren't on, and no commercial terms anywhere.
+- And I didn't want to just open the floodgates. They need the full picture on their clients, nothing on the clients they aren't on, and no commercial terms anywhere.
 - When someone moves off a project, that access should go away cleanly, not live on in a forgotten shared folder.
 
 ## Slide 3: So I built a company brain on Fulcra (0:25)
