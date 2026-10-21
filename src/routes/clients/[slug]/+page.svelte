@@ -3,6 +3,7 @@
   import { user } from '$lib/user';
   import { onMount } from 'svelte';
   import { page } from '$app/state';
+  import { resolve } from '$app/paths';
   import LoginDeviceFlow from '$lib/components/LoginDeviceFlow.svelte';
   import { renderMarkdown } from '$lib/markdown.js';
   import { lintBrain } from '$lib/lint.js';
@@ -156,7 +157,7 @@
   <LoginDeviceFlow />
 {:else}
   <main class="mx-auto w-full max-w-4xl px-4 py-8">
-    <a href="/" class="text-sm text-fulcra-gray hover:text-fulcra-teal">← All clients</a>
+    <a href={resolve('/')} class="text-sm text-fulcra-gray hover:text-fulcra-teal">← All clients</a>
 
     {#if loadError}
       <p class="mt-6 rounded-lg border border-red-400/40 bg-red-500/10 p-4 text-red-300">{loadError}</p>
@@ -276,7 +277,7 @@
           ></textarea>
           {#if warnings.length}
             <div class="mt-3 rounded-lg border border-amber-400/50 bg-amber-500/10 p-4" data-testid="lint-warning">
-              {#each warnings as w}<p class="text-sm text-amber-300">{w}</p>{/each}
+              {#each warnings as w (w)}<p class="text-sm text-amber-300">{w}</p>{/each}
               <div class="mt-3 flex gap-2">
                 <button class="rounded-lg px-3 py-1.5 text-sm text-fulcra-white hover:bg-fulcra-gray/10" onclick={() => (warnings = [])}
                   >Fix it</button
@@ -310,6 +311,7 @@
       {:else}
         <article class="brain-md mt-6" data-section={current?.file}>
           {#if current?.content}
+            <!-- eslint-disable-next-line svelte/no-at-html-tags -- sanitized by DOMPurify in renderMarkdown -->
             {@html renderMarkdown(current.content)}
           {:else}
             <p class="text-fulcra-gray">This section is empty. Nothing at {current?.file} yet.</p>

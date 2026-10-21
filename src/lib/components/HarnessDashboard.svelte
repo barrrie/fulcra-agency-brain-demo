@@ -1,4 +1,4 @@
-<script lang="ts">
+<script>
   import { onMount, onDestroy } from 'svelte';
   import { env } from '$env/dynamic/public';
   import { marked } from 'marked';
@@ -8,9 +8,10 @@
   // marked turns the markdown into HTML; DOMPurify strips anything unsafe. Only
   // ever called in the browser with non-empty content, so SSR never touches
   // DOMPurify (which needs a DOM).
-  function renderMarkdown(md: string): string {
+  /** @param {string} md @returns {string} */
+  function renderMarkdown(md) {
     if (!md) return '';
-    return DOMPurify.sanitize(marked.parse(md, { async: false }) as string);
+    return DOMPurify.sanitize(/** @type {string} */ (marked.parse(md, { async: false })));
   }
 
   // Environment variables (set in .env). The owner's id is intentionally NOT
@@ -19,11 +20,14 @@
   const HARNESS_ANNOTATION_ID = env.PUBLIC_HARNESS_ANNOTATION_ID;
   const WORKSPACE_PATH = env.PUBLIC_WORKSPACE_PATH;
 
-  let runs: any[] = $state([]);
-  let currentRun: any = $state(null);
-  let overview: string = $state('');
-  let outstandingIssues: string = $state('');
-  let refreshInterval: any;
+  /** @type {any[]} */
+  let runs = $state([]);
+  /** @type {any} */
+  let currentRun = $state(null);
+  let overview = $state('');
+  let outstandingIssues = $state('');
+  /** @type {any} */
+  let refreshInterval;
 
   // Ownership is decided by the backend; starts false until confirmed.
   let isOwner = $state(false);
@@ -34,20 +38,17 @@
       if (!res.ok) return false;
       const data = await res.json();
       return data.isOwner === true;
-    } catch (e) {
+    } catch {
       return false;
     }
   }
 
   // Flow chart lookups for the currently selected run
-  let stepMap = $derived(new Map((currentRun?.events || []).map((e: any) => [e.step, e])));
-  const hasStep = (step: string) => stepMap.has(step);
-  const getStep = (step: string) => stepMap.get(step);
+  let stepMap = $derived(new Map((currentRun?.events || []).map((/** @type {any} */ e) => [e.step, e])));
+  const hasStep = (/** @type {string} */ step) => stepMap.has(step);
+  const getStep = (/** @type {string} */ step) => stepMap.get(step);
 
   // Which branches of the constant flow chart this run actually took.
-  // The Nurse health-check at the top acts on the *previous* run, so a fix or
-  // escalation appearing in this run means the nurse intervened before the run.
-  let nurseIntervened = $derived(stepMap.has('FIX_ATTEMPT') || stepMap.has('ESCALATE'));
   let projectComplete = $derived(stepMap.has('FIND_MILESTONE') && !stepMap.has('GENERATE'));
   let reviewFailed = $derived(
     stepMap.has('REVIEW') &&
@@ -70,14 +71,16 @@
       const records = data.records || data || [];
 
       // Group by run_id from the record data
+      // Plain Map: local to this fetch, never reactive state.
+      // eslint-disable-next-line svelte/prefer-svelte-reactivity
       const runMap = new Map();
-      records.forEach((record: any) => {
+      records.forEach((/** @type {any} */ record) => {
 
         // Parse the note field as JSON to get harness data
         let harnessData;
         try {
           harnessData = record.note ? JSON.parse(record.note) : {};
-        } catch (e) {
+        } catch {
           console.error('Failed to parse note as JSON:', record.note);
           return;
         }
@@ -101,8 +104,8 @@
       // Sort each run's events chronologically so the last event is the newest
       // one — getRunStatus and the per-step lookup both rely on latest-wins,
       // and long steps emit several records that may arrive out of order.
-      runsArray.forEach((r: any) =>
-        r.events.sort((a: any, b: any) => (a.timestamp || '').localeCompare(b.timestamp || ''))
+      runsArray.forEach((/** @type {any} */ r) =>
+        r.events.sort((/** @type {any} */ a, /** @type {any} */ b) => (a.timestamp || '').localeCompare(b.timestamp || ''))
       );
       const sortedRunsArray = runsArray.sort((a, b) => {
         const aTime = a.events[0]?.timestamp || '';
@@ -131,7 +134,7 @@
     try {
       const res = await fetch(`/api/harness/overview?workspace_path=${encodeURIComponent(WORKSPACE_PATH)}`);
       overview = await res.text();
-    } catch (e) {
+    } catch {
       overview = '';
     }
   }
@@ -140,7 +143,7 @@
     try {
       const res = await fetch(`/api/harness/issues?workspace_path=${encodeURIComponent(WORKSPACE_PATH)}`);
       outstandingIssues = await res.text();
-    } catch (e) {
+    } catch {
       outstandingIssues = '';
     }
   }
@@ -166,7 +169,8 @@
     if (refreshInterval) clearInterval(refreshInterval);
   });
 
-  function getRunStatus(run: any) {
+  /** @param {any} run */
+  function getRunStatus(run) {
     const lastEvent = run.events[run.events.length - 1];
     if (lastEvent.step === 'RUN_COMPLETE') return 'completed';
     if (lastEvent.step === 'RUN_INCOMPLETE') return 'incomplete';
@@ -174,7 +178,8 @@
     return 'in-progress';
   }
 
-  function formatTimestamp(ts: string) {
+  /** @param {string} ts */
+  function formatTimestamp(ts) {
     return new Date(ts).toLocaleString();
   }
 </script>
@@ -187,6 +192,7 @@
     {#if outstandingIssues}
       <div class="outstanding-issues">
         <h3>Outstanding Issues</h3>
+        <!-- eslint-disable-next-line svelte/no-at-html-tags -- sanitized by DOMPurify in renderMarkdown -->
         <div class="markdown-body issues-content">{@html renderMarkdown(outstandingIssues)}</div>
       </div>
     {/if}
@@ -195,7 +201,7 @@
     <div class="run-history">
       <h3>Recent Runs</h3>
       <div class="run-list">
-        {#each runs.slice(0, 3) as run}
+        {#each runs.slice(0, 3) as run (run.run_id)}
           <button
             class="run-item"
             class:active={run === currentRun}
@@ -322,6 +328,7 @@
     <!-- Product Overview - concise progress + milestone summary (nurse-authored) -->
     {#if overview}
       <div class="overview">
+        <!-- eslint-disable-next-line svelte/no-at-html-tags -- sanitized by DOMPurify in renderMarkdown -->
         <div class="markdown-body">{@html renderMarkdown(overview)}</div>
       </div>
     {/if}
