@@ -1,7 +1,7 @@
 {
   "fictional": true,
   "source": "asana",
-  "project": "Corvid Analytics \u00b7 Community",
+  "project": "Delta Air Lines \u00b7 Community",
   "merged_at": "2026-10-19T08:00:00Z",
   "tasks": [
     {
@@ -24,7 +24,7 @@
     },
     {
       "gid": "12000000000203",
-      "name": "Ike fact-check: SQL access comment",
+      "name": "Ike fact-check: Medallion qualification comment",
       "due_on": "2026-10-17",
       "completed": false,
       "assignee": "Morgan",
@@ -78,7 +78,7 @@
     },
     {
       "gid": "12000000000209",
-      "name": "Founder AMA plan",
+      "name": "SkyMiles team AMA plan",
       "due_on": null,
       "completed": false,
       "assignee": "Morgan",

@@ -3,6 +3,7 @@
   import { user } from '$lib/user';
   import { onMount } from 'svelte';
   import LoginDeviceFlow from '$lib/components/LoginDeviceFlow.svelte';
+  import DisplayName from '$lib/components/DisplayName.svelte';
 
   let map = $state(null);
   let loadError = $state(null);
@@ -163,8 +164,13 @@
   <LoginDeviceFlow />
 {:else}
   <main class="mx-auto w-full max-w-5xl px-4 py-8">
-    <h1 class="text-3xl font-bold text-fulcra-white">Who can see what</h1>
-    <p class="mt-1 text-fulcra-gray">Live from your Fulcra shares. You always have access to every brain.</p>
+    <header class="flex flex-wrap items-end justify-between gap-4">
+      <div>
+        <h1 class="text-3xl font-bold text-fulcra-white">Who can see what</h1>
+        <p class="mt-1 text-fulcra-gray">Live from your Fulcra shares. You always have access to every brain.</p>
+      </div>
+      <DisplayName />
+    </header>
 
     {#if loadError}
       <p class="mt-6 rounded-lg border border-red-400/40 bg-red-500/10 p-4 text-red-300">{loadError}</p>

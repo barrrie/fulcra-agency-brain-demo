@@ -2,7 +2,7 @@
 
 A SvelteKit app that keeps one "brain" per agency client in Fulcra and controls who on the team can read each one. Built on the Fulcra Svelte app template.
 
-**The client data in this repo is fictional.** The agency name is Kind Stranger, but its clients (Pebblebrook Pet Co, Corvid Analytics, Quarry Climbing), the people, emails and Fulcra IDs are invented for the demo.
+**The demo data is fictional.** The sample clients use real brand names (Starbucks, Delta Air Lines, McDonald's) so the brains feel familiar, but the engagements, people, emails, numbers and Fulcra IDs are invented. None of these companies is a client of Kind Stranger and none of them is involved with this demo.
 
 ## What it does
 
@@ -10,7 +10,7 @@ A SvelteKit app that keeps one "brain" per agency client in Fulcra and controls 
 - **Asana tab.** If the sync has merged the client's Asana project into the brain (`asana.json` in the client folder), the Asana tab shows how many tasks were merged, how many are coming up, overdue, and left out of the merge (with the reason), as a list or a month calendar. Read-only; Asana stays the source. Tasks that mention pricing are dropped server-side and counted as left out.
 - **Owner view.** Edit any file, see every saved version, restore an old one.
 - **Teammate view.** Teammates sign in with their own Fulcra account and see only the clients shared with them, read-only. Fulcra's data shares decide what they can see, and the server blocks writes, not just the buttons.
-- **Display names.** Everyone sees "Signed in as …" on the home page, using the name on their Fulcra account until they pick their own display name. It's saved in their browser, keyed by Fulcra ID, so there's no new write route for teammates.
+- **Display names.** Everyone sees "Signed in as …" on the home page (and the owner also on the Access page and in the nav), using the name on their Fulcra account until they pick their own display name. It's saved in their browser, keyed by Fulcra ID, so there's no new write route for teammates.
 - **Access page.** One table of who can read which client, inside and outside the team. Grant, revoke, or add a teammate and share several clients in one step.
 
 ## Run it
