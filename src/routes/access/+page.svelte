@@ -262,7 +262,7 @@
             <thead class="bg-fulcra-black/50 text-fulcra-gray">
               <tr>
                 <th class="px-4 py-3 font-medium">Who</th>
-                {#each map.clients as c}<th class="px-4 py-3 font-medium">{titleCase(c)}</th>{/each}
+                {#each map.clients as c (c)}<th class="px-4 py-3 font-medium">{titleCase(c)}</th>{/each}
               </tr>
             </thead>
             <tbody>
@@ -278,7 +278,7 @@
                     {/if}
                     <div class="mt-0.5 font-mono text-xs text-fulcra-gray/70">{r.kind} · {r.id}</div>
                   </td>
-                  {#each map.clients as c}
+                  {#each map.clients as c (c)}
                     <td class="px-4 py-3" data-client={c}>
                       {#if r.access[c]}
                         <span class={r.access[c] === 'full' ? 'text-fulcra-teal' : 'text-amber-300'}>
@@ -308,7 +308,7 @@
           <label class="text-sm text-fulcra-gray">
             Client
             <select class="mt-1 block rounded-lg bg-fulcra-black px-3 py-2 text-fulcra-white" bind:value={shareSlug} name="slug">
-              {#each map.clients as c}<option value={c}>{titleCase(c)}</option>{/each}
+              {#each map.clients as c (c)}<option value={c}>{titleCase(c)}</option>{/each}
             </select>
           </label>
           <label class="text-sm text-fulcra-gray">
@@ -363,7 +363,7 @@
         <fieldset class="mt-4">
           <legend class="text-sm text-fulcra-gray">Clients they can read</legend>
           <div class="mt-2 flex flex-wrap gap-2">
-            {#each map.clients as c}
+            {#each map.clients as c (c)}
               <label class="flex min-h-11 cursor-pointer items-center gap-2 rounded-lg border border-fulcra-gray/25 px-3 py-2 text-sm text-fulcra-white has-[:checked]:border-fulcra-teal/60 has-[:checked]:bg-fulcra-teal/10">
                 <input type="checkbox" value={c} bind:group={mateSlugs} class="accent-[#56d6b7]" />
                 {titleCase(c)}

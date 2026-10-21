@@ -1,5 +1,6 @@
-<script lang="ts">
+<script>
   import { user } from '$lib/user';
+  import { resolve } from '$app/paths';
   import { displayNames, resolveName } from '$lib/display-name.js';
 
   // The owner's id lives server-side only; ask the backend whether we're the
@@ -16,7 +17,7 @@
     try {
       const res = await fetch('/api/harness/owner');
       isOwner = res.ok && (await res.json()).isOwner === true;
-    } catch (e) {
+    } catch {
       isOwner = false;
     }
   }
@@ -36,19 +37,19 @@
       <div class="flex items-center justify-between">
         <div class="flex items-center gap-4">
           <a
-            href="/"
+            href={resolve('/')}
             class="text-fulcra-teal hover:text-fulcra-teal/80 font-medium"
           >
             Home
           </a>
           <a
-            href="/access"
+            href={resolve('/access')}
             class="text-fulcra-teal hover:text-fulcra-teal/80 font-medium"
           >
             Access
           </a>
           <a
-            href="/harness"
+            href={resolve('/harness')}
             class="text-fulcra-teal hover:text-fulcra-teal/80 font-medium"
           >
             Harness Dashboard

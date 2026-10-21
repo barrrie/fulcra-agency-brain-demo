@@ -136,12 +136,14 @@
           {#each g.tasks as t (t.gid)}
             <li class="flex items-center justify-between gap-3 px-4 py-2.5 text-sm">
               <span class={t.completed ? 'text-fulcra-gray line-through' : 'text-fulcra-white'}>
+                <!-- eslint-disable svelte/no-navigation-without-resolve -- external Asana link -->
                 {#if t.url}<a
                     href={t.url}
                     target="_blank"
                     rel="noopener"
                     class="hover:text-fulcra-teal">{t.name}</a
                   >{:else}{t.name}{/if}
+                <!-- eslint-enable svelte/no-navigation-without-resolve -->
                 {#if t.section}<span class="ml-2 text-xs text-fulcra-gray">{t.section}</span>{/if}
               </span>
               <span class="flex shrink-0 items-center gap-2 text-xs text-fulcra-gray">

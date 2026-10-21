@@ -5,7 +5,7 @@ import { error, json } from '@sveltejs/kit';
  * Server-side proxy for Auth0 device authorization endpoint
  * Bypasses CORS by making the request server-side
  */
-export async function POST({ request }) {
+export async function POST() {
   try {
     const deviceCodeRequest = {
       client_id: env.PUBLIC_AUTH0_CLIENT_ID,

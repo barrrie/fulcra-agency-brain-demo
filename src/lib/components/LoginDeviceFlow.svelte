@@ -154,12 +154,14 @@
 
           <p class="mt-4 text-[12px] leading-[1.6] text-fulcra-gray">
             Popup blocked?
+            <!-- eslint-disable svelte/no-navigation-without-resolve -- external Auth0 verification URL -->
             <a
               href={verificationInfo.verificationUri}
               target="_blank"
               rel="noopener noreferrer"
               class="text-fulcra-teal underline hover:text-fulcra-white">Open the verification page</a
             >.
+            <!-- eslint-enable svelte/no-navigation-without-resolve -->
           </p>
         {/if}
       </div>

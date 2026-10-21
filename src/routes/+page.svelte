@@ -2,6 +2,7 @@
   import { APP_NAME, OWNER_NAME, CLIENTS_PATH } from '$lib/config.js';
   import { user } from '$lib/user';
   import { onMount } from 'svelte';
+  import { resolve } from '$app/paths';
   import LoginDeviceFlow from '$lib/components/LoginDeviceFlow.svelte';
   import DisplayName from '$lib/components/DisplayName.svelte';
 
@@ -84,7 +85,7 @@
         {#each clients as c (c.slug)}
           <li>
             <a
-              href={`/clients/${c.slug}`}
+              href={resolve('/clients/[slug]', { slug: c.slug })}
               class="block rounded-xl border border-fulcra-gray/20 bg-fulcra-black/40 p-5 transition hover:border-fulcra-teal/60 hover:bg-fulcra-black/60"
             >
               <span class="block text-lg font-semibold text-fulcra-white">{c.name}</span>
