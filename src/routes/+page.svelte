@@ -47,7 +47,7 @@
   <LoginDeviceFlow />
 {:else}
   <main class="mx-auto w-full max-w-4xl px-4 py-8">
-    <header class="mb-8 flex items-end justify-between gap-4">
+    <header class="mb-8 flex flex-wrap items-end justify-between gap-4">
       <div>
         <h1 class="text-3xl font-bold text-fulcra-white">Client brains</h1>
         <p class="mt-1 text-fulcra-gray">What an account strategist needs to know, per client.</p>
