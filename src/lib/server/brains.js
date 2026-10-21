@@ -3,6 +3,7 @@ import { error } from '@sveltejs/kit';
 import { FulcraAPI } from '$lib/api-client.js';
 import { isOwner } from '$lib/server/harness-owner.js';
 import { env as privateEnv } from '$env/dynamic/private';
+import { sanitizeAsana } from '$lib/asana.js';
 
 /** Agency folder in Fulcra (team.json lives here). Override with AGENCY_ROOT. */
 export const AGENCY_ROOT = (privateEnv.AGENCY_ROOT || '/demo-agency').replace(/\/+$/, '');
@@ -17,6 +18,7 @@ export const CLIENTS_ROOT = `${AGENCY_ROOT}/clients`;
 export const DEMO_FIXTURES = /^(1|true|yes)$/i.test(privateEnv.DEMO_FIXTURES || '');
 
 const FIXTURES = import.meta.glob('/demo/brains/*/*.md', { query: '?raw', import: 'default', eager: true });
+const ASANA_FIXTURES = import.meta.glob('/demo/brains/*/asana.json', { import: 'default', eager: true });
 
 function fixtureClients() {
   return [...new Set(Object.keys(FIXTURES).map((p) => p.split('/')[3]))].sort();
@@ -31,7 +33,8 @@ function fixtureBrain(slug) {
     versionId: null,
     uploadedAt: null
   }));
-  return { slug, name: displayName(slug), sections, readOnly: true, demo: true };
+  const asana = sanitizeAsana(ASANA_FIXTURES[`/demo/brains/${slug}/asana.json`]);
+  return { slug, name: displayName(slug), sections, asana, readOnly: true, demo: true };
 }
 
 /** The seven brain files, in reading order. */
@@ -44,6 +47,9 @@ export const BRAIN_FILES = [
   { file: 'log.md', label: 'Log' },
   { file: 'links.md', label: 'Links' }
 ];
+
+/** Asana tasks merged into the brain by the sync. Read-only here; Asana is the source. */
+export const ASANA_FILE = 'asana.json';
 
 const SLUG = /^[a-z0-9][a-z0-9-]{0,63}$/;
 
@@ -129,26 +135,41 @@ export async function readBrain(token, slug, asUser = null) {
   const files = listing?.files || [];
   if (!files.length && !(listing?.folders || []).length) throw error(404, 'Client not found');
 
+  const q = asUser ? `?fulcra_userid=${encodeURIComponent(asUser)}` : '';
+  const download = async (meta) => {
+    const res = await fetch(`${env.PUBLIC_FULCRA_API_ENDPOINT}input/v1/file/${meta.id}/download${q}`, {
+      headers: { Authorization: `Bearer ${token}` }
+    });
+    if (!res.ok) throw error(502, `Could not read ${meta.name}`);
+    return res.text();
+  };
+
   const sections = await Promise.all(
     BRAIN_FILES.map(async ({ file, label }) => {
       const meta = files.find((f) => f.name === file);
       if (!meta) return { file, label, content: null, versionId: null, uploadedAt: null };
-      const q = asUser ? `?fulcra_userid=${encodeURIComponent(asUser)}` : '';
-      const res = await fetch(`${env.PUBLIC_FULCRA_API_ENDPOINT}input/v1/file/${meta.id}/download${q}`, {
-        headers: { Authorization: `Bearer ${token}` }
-      });
-      if (!res.ok) throw error(502, `Could not read ${file}`);
+      const content = await download(meta);
       return {
         file,
         label,
-        content: await res.text(),
+        content,
         // Viewers never get version ids (no editing, no history).
         versionId: asUser ? null : meta.id,
         uploadedAt: meta.uploaded_at ?? null
       };
     })
   );
-  return { slug, name: displayName(slug), sections, readOnly: Boolean(asUser) };
+  // A missing or unreadable asana.json just means an empty Asana tab.
+  const asanaMeta = files.find((f) => f.name === ASANA_FILE);
+  let asana = null;
+  if (asanaMeta) {
+    try {
+      asana = sanitizeAsana(JSON.parse(await download(asanaMeta)));
+    } catch {
+      asana = null;
+    }
+  }
+  return { slug, name: displayName(slug), sections, asana, readOnly: Boolean(asUser) };
 }
 
 const FILE_NAMES = new Set(BRAIN_FILES.map((f) => f.file));

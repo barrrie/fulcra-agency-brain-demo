@@ -1,0 +1,107 @@
+{
+  "fictional": true,
+  "source": "asana",
+  "project": "Delta Air Lines \u00b7 Community",
+  "merged_at": "2026-10-19T08:00:00Z",
+  "tasks": [
+    {
+      "gid": "12000000000201",
+      "name": "Baseline citation report from Signalboard",
+      "due_on": "2026-08-12",
+      "completed": true,
+      "assignee": "Morgan",
+      "section": "Reporting",
+      "url": "https://app.asana.com/0/12000000000002/12000000000201"
+    },
+    {
+      "gid": "12000000000202",
+      "name": "Comparison-thread sweep (week 42)",
+      "due_on": "2026-10-16",
+      "completed": true,
+      "assignee": "Priya",
+      "section": "Comments",
+      "url": "https://app.asana.com/0/12000000000002/12000000000202"
+    },
+    {
+      "gid": "12000000000203",
+      "name": "Ike fact-check: Medallion qualification comment",
+      "due_on": "2026-10-17",
+      "completed": false,
+      "assignee": "Morgan",
+      "section": "Approvals",
+      "url": "https://app.asana.com/0/12000000000002/12000000000203"
+    },
+    {
+      "gid": "12000000000204",
+      "name": "Biweekly call",
+      "due_on": "2026-10-22",
+      "completed": false,
+      "assignee": "Morgan",
+      "section": "Calls",
+      "url": "https://app.asana.com/0/12000000000002/12000000000204"
+    },
+    {
+      "gid": "12000000000205",
+      "name": "Comparison-thread sweep (week 43)",
+      "due_on": "2026-10-23",
+      "completed": false,
+      "assignee": "Priya",
+      "section": "Comments",
+      "url": "https://app.asana.com/0/12000000000002/12000000000205"
+    },
+    {
+      "gid": "12000000000206",
+      "name": "Signalboard monthly readout",
+      "due_on": "2026-11-03",
+      "completed": false,
+      "assignee": "Morgan",
+      "section": "Reporting",
+      "url": "https://app.asana.com/0/12000000000002/12000000000206"
+    },
+    {
+      "gid": "12000000000207",
+      "name": "Comparison-thread sweep (week 45)",
+      "due_on": "2026-11-06",
+      "completed": false,
+      "assignee": "Priya",
+      "section": "Comments",
+      "url": "https://app.asana.com/0/12000000000002/12000000000207"
+    },
+    {
+      "gid": "12000000000208",
+      "name": "90-day citation readout",
+      "due_on": "2026-11-10",
+      "completed": false,
+      "assignee": "Morgan",
+      "section": "Reporting",
+      "url": "https://app.asana.com/0/12000000000002/12000000000208"
+    },
+    {
+      "gid": "12000000000209",
+      "name": "SkyMiles team AMA plan",
+      "due_on": null,
+      "completed": false,
+      "assignee": "Morgan",
+      "section": "Backlog",
+      "url": "https://app.asana.com/0/12000000000002/12000000000209"
+    }
+  ],
+  "left_out": [
+    {
+      "gid": "1200000009201",
+      "reason": "Internal agency admin"
+    },
+    {
+      "gid": "1200000009202",
+      "reason": "Not tagged for this client"
+    },
+    {
+      "gid": "1200000009203",
+      "reason": "Not tagged for this client"
+    },
+    {
+      "gid": "1200000009204",
+      "reason": "Private to Signalboard"
+    }
+  ]
+}

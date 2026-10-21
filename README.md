@@ -7,8 +7,10 @@ A SvelteKit app that keeps one "brain" per agency client in Fulcra and controls 
 ## What it does
 
 - **Client brains.** Each client is a folder in Fulcra with seven markdown files: brief, people, voice and guardrails, playbook, decisions, log, links. That's what an account strategist needs to pick up a client cold.
+- **Asana tab.** If the sync has merged the client's Asana project into the brain (`asana.json` in the client folder), the Asana tab shows how many tasks were merged, how many are coming up, overdue, and left out of the merge (with the reason), as a list or a month calendar. Read-only; Asana stays the source. Tasks that mention pricing are dropped server-side and counted as left out.
 - **Owner view.** Edit any file, see every saved version, restore an old one.
 - **Teammate view.** Teammates sign in with their own Fulcra account and see only the clients shared with them, read-only. Fulcra's data shares decide what they can see, and the server blocks writes, not just the buttons.
+- **Display names.** Everyone sees "Signed in as …" on the home page, using the name on their Fulcra account until they pick their own display name. It's saved in their browser, keyed by Fulcra ID, so there's no new write route for teammates.
 - **Access page.** One table of who can read which client, inside and outside the team. Grant, revoke, or add a teammate and share several clients in one step.
 
 ## Run it

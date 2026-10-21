@@ -1,0 +1,108 @@
+{
+  "fictional": true,
+  "source": "asana",
+  "project": "Starbucks \u00b7 Community",
+  "merged_at": "2026-10-19T08:00:00Z",
+  "tasks": [
+    {
+      "gid": "12000000000301",
+      "name": "Audit delivered",
+      "due_on": "2026-07-01",
+      "completed": true,
+      "assignee": "Morgan",
+      "section": "Reporting",
+      "url": "https://app.asana.com/0/12000000000003/12000000000301"
+    },
+    {
+      "gid": "12000000000302",
+      "name": "Brand-sub drafts to mods and legal",
+      "due_on": "2026-09-24",
+      "completed": true,
+      "assignee": "Priya",
+      "section": "Brand sub",
+      "url": "https://app.asana.com/0/12000000000003/12000000000302"
+    },
+    {
+      "gid": "12000000000303",
+      "name": "Chase legal on seasonal-availability wording",
+      "due_on": "2026-10-13",
+      "completed": false,
+      "assignee": "Morgan",
+      "section": "Brand sub",
+      "url": "https://app.asana.com/0/12000000000003/12000000000303"
+    },
+    {
+      "gid": "12000000000304",
+      "name": "Weekly call",
+      "due_on": "2026-10-20",
+      "completed": false,
+      "assignee": "Morgan",
+      "section": "Calls",
+      "url": "https://app.asana.com/0/12000000000003/12000000000304"
+    },
+    {
+      "gid": "12000000000305",
+      "name": "Mobile-order tips comment for r/starbucks",
+      "due_on": "2026-10-21",
+      "completed": false,
+      "assignee": "Priya",
+      "section": "Comments",
+      "url": "https://app.asana.com/0/12000000000003/12000000000305"
+    },
+    {
+      "gid": "12000000000306",
+      "name": "Lena review: stars-expiry answer",
+      "due_on": "2026-10-23",
+      "completed": false,
+      "assignee": "Priya",
+      "section": "Approvals",
+      "url": "https://app.asana.com/0/12000000000003/12000000000306"
+    },
+    {
+      "gid": "12000000000307",
+      "name": "Weekly call",
+      "due_on": "2026-10-27",
+      "completed": false,
+      "assignee": "Morgan",
+      "section": "Calls",
+      "url": "https://app.asana.com/0/12000000000003/12000000000307"
+    },
+    {
+      "gid": "12000000000308",
+      "name": "30-comment readout",
+      "due_on": "2026-11-04",
+      "completed": false,
+      "assignee": "Morgan",
+      "section": "Reporting",
+      "url": "https://app.asana.com/0/12000000000003/12000000000308"
+    },
+    {
+      "gid": "12000000000309",
+      "name": "Brand-sub pinned-posts checklist",
+      "due_on": "2026-11-12",
+      "completed": false,
+      "assignee": "Priya",
+      "section": "Brand sub",
+      "url": "https://app.asana.com/0/12000000000003/12000000000309"
+    },
+    {
+      "gid": "12000000000310",
+      "name": "Seasonal-menu FAQ thread",
+      "due_on": null,
+      "completed": false,
+      "assignee": "Priya",
+      "section": "Backlog",
+      "url": "https://app.asana.com/0/12000000000003/12000000000310"
+    }
+  ],
+  "left_out": [
+    {
+      "gid": "1200000009301",
+      "reason": "Internal agency admin"
+    },
+    {
+      "gid": "1200000009302",
+      "reason": "Duplicate of a merged task"
+    }
+  ]
+}
