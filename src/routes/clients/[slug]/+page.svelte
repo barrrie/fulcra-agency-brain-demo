@@ -206,7 +206,9 @@
           {#if current?.uploadedAt}Last saved {fmt(current.uploadedAt)}{/if}
         </span>
         {#if brain?.readOnly}
-          <span class="rounded-lg bg-fulcra-gray/10 px-3 py-1.5" data-testid="read-only">Read-only</span>
+          <span class="rounded-lg bg-fulcra-gray/10 px-3 py-1.5" data-testid="read-only"
+            >{brain.sandbox && !brain.viewer ? 'Editing is off in the demo' : 'Read-only'}</span
+          >
         {:else if !editing}
           <div class="flex gap-2">
             <button class="rounded-lg px-3 py-1.5 hover:bg-fulcra-gray/10" data-testid="history-toggle" onclick={toggleHistory}

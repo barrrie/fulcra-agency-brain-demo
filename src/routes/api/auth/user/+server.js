@@ -1,11 +1,17 @@
 import { env } from '$env/dynamic/public';
 import { error, json } from '@sveltejs/kit';
+import { DEMO_SANDBOX, personaFor } from '$lib/server/sandbox.js';
 
 /**
  * Server-side endpoint to get Auth0 user info
  * Uses the access token from the HTTP-only cookie
  */
 export async function GET({ cookies }) {
+  if (DEMO_SANDBOX) {
+    const me = personaFor(cookies);
+    return json({ 'fulcradynamics.com/userid': me.id, name: me.name });
+  }
+
   const accessToken = cookies.get('fulcra_access_token');
 
   if (!accessToken) {

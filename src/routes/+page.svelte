@@ -4,6 +4,7 @@
   import { onMount } from 'svelte';
   import LoginDeviceFlow from '$lib/components/LoginDeviceFlow.svelte';
   import DisplayName from '$lib/components/DisplayName.svelte';
+  import { demo } from '$lib/demo.js';
 
   let clients = $state(null);
   let role = $state(null);
@@ -52,10 +53,12 @@
         <p class="mt-1 text-fulcra-gray">What an account strategist needs to know, per client.</p>
       </div>
       <div class="flex flex-col items-end gap-2">
-        <button
-          class="rounded-lg bg-fulcra-teal/20 px-4 py-2 text-sm text-fulcra-teal hover:bg-fulcra-teal/50"
-          onclick={user.logout}>Sign out</button
-        >
+        {#if !$demo.sandbox}
+          <button
+            class="rounded-lg bg-fulcra-teal/20 px-4 py-2 text-sm text-fulcra-teal hover:bg-fulcra-teal/50"
+            onclick={user.logout}>Sign out</button
+          >
+        {/if}
         <DisplayName />
       </div>
     </header>

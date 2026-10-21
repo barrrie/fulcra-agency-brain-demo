@@ -1,0 +1,15 @@
+{
+  "fictional": true,
+  "newcomers": [
+    {
+      "fulcra_userid": "00000000-0000-4000-8000-000000000003",
+      "name": "Sam"
+    }
+  ],
+  "shares": [
+    {
+      "client": "corvid-analytics",
+      "user": "00000000-0000-4000-8000-000000000002"
+    }
+  ]
+}

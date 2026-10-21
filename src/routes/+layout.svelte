@@ -3,10 +3,12 @@
   import { blur } from 'svelte/transition';
   import { page } from '$app/state';
   import OwnerNav from '$lib/components/OwnerNav.svelte';
+  import DemoBar from '$lib/components/DemoBar.svelte';
 
   let { children } = $props();
 </script>
 
+<DemoBar />
 <OwnerNav />
 
 {#key page.url.pathname}

@@ -25,6 +25,22 @@ npm run dev          # http://localhost:6173
 
 `DEMO_FIXTURES=true` serves the fictional brains in `demo/brains/` to anyone who signs in with a Fulcra account. Read-only, no setup in Fulcra.
 
+### Demo sandbox (for presenting)
+
+```bash
+npm run demo         # http://localhost:6173, no sign-in
+```
+
+`DEMO_SANDBOX=true` runs every screen on the fictional brains with no Fulcra account at all. Sharing is simulated in memory with the same rules as the real access page, and the server still enforces who sees what. A bar along the top lets you view the app as anyone:
+
+- **Morgan** (owner) sees every brain and the Access page.
+- **Priya** (strategist) starts with Corvid Analytics only.
+- **Sam** isn't on the team yet and sees nothing, plus the Fulcra ID to send the owner.
+
+The demo: as Sam, copy the ID. As Morgan, go to Access, paste it into *Add a teammate*, tick one client and confirm. Sam refreshes and sees just that client, read-only. Morgan clicks *Remove*; Sam refreshes and it's gone. **Reset** (owner only) puts everything back, and so does restarting the server.
+
+For side by side, use a normal window for Morgan and a private window for Sam. Each window remembers who it's viewing as, and both see the same shares. Editing and version history are off in the sandbox. It keeps state in the server process, so run it locally rather than on a serverless host. Set `PUBLIC_AGENCY_NAME` in `.env` to show your own agency name.
+
 ### Real mode
 
 To try editing, history and sharing against your own Fulcra:

@@ -4,6 +4,7 @@ import { FulcraAPI } from '$lib/api-client.js';
 import { isOwner } from '$lib/server/harness-owner.js';
 import { env as privateEnv } from '$env/dynamic/private';
 import { sanitizeAsana } from '$lib/asana.js';
+import { DEMO_SANDBOX, SANDBOX_TOKEN, personaFor, getSandbox } from '$lib/server/sandbox.js';
 
 /** Agency folder in Fulcra (team.json lives here). Override with AGENCY_ROOT. */
 export const AGENCY_ROOT = (privateEnv.AGENCY_ROOT || '/demo-agency').replace(/\/+$/, '');
@@ -55,6 +56,10 @@ const SLUG = /^[a-z0-9][a-z0-9-]{0,63}$/;
 
 /** Throws 401/403 unless the caller is the owner; returns the access token. */
 export function requireOwner(cookies) {
+  if (DEMO_SANDBOX) {
+    if (personaFor(cookies).role !== 'owner') throw error(403, 'Forbidden');
+    return SANDBOX_TOKEN;
+  }
   const token = cookies.get('fulcra_access_token');
   if (!token) throw error(401, 'Not authenticated');
   if (DEMO_FIXTURES) throw error(403, 'Demo mode is read-only');
@@ -68,6 +73,11 @@ export function requireOwner(cookies) {
  * itself decides what they can see.
  */
 export function requireSignedIn(cookies) {
+  if (DEMO_SANDBOX) {
+    const me = personaFor(cookies);
+    const owner = me.role === 'owner';
+    return { token: SANDBOX_TOKEN, owner, asUser: owner ? null : me.id };
+  }
   const token = cookies.get('fulcra_access_token');
   if (!token) throw error(401, 'Not authenticated');
   if (DEMO_FIXTURES) return { token, owner: false, asUser: 'demo' };
@@ -103,6 +113,7 @@ function folderName(f) {
 
 /** Client slugs under CLIENTS_ROOT, sorted. */
 export async function listClients(token, asUser = null) {
+  if (DEMO_SANDBOX) return asUser ? getSandbox().visibleTo(asUser) : fixtureClients();
   if (DEMO_FIXTURES) return fixtureClients();
   const listing = await listFolderOrEmpty(token, CLIENTS_ROOT, asUser);
   return (listing?.folders || [])
@@ -129,6 +140,11 @@ export function displayName(slug) {
  */
 export async function readBrain(token, slug, asUser = null) {
   if (!SLUG.test(slug)) throw error(400, 'Invalid client');
+  if (DEMO_SANDBOX) {
+    // Same as Fulcra: a client that isn't shared with you doesn't exist for you.
+    if (asUser && !getSandbox().visibleTo(asUser).includes(slug)) throw error(404, 'Client not found');
+    return { ...fixtureBrain(slug), sandbox: true, viewer: Boolean(asUser) };
+  }
   if (DEMO_FIXTURES) return fixtureBrain(slug);
   const folder = `${CLIENTS_ROOT}/${slug}`;
   const listing = await listFolderOrEmpty(token, folder, asUser);
@@ -175,6 +191,7 @@ export async function readBrain(token, slug, asUser = null) {
 const FILE_NAMES = new Set(BRAIN_FILES.map((f) => f.file));
 
 function checkFile(slug, file) {
+  if (DEMO_SANDBOX) throw error(403, 'Editing is off in the demo sandbox');
   if (DEMO_FIXTURES) throw error(403, 'Demo data is read-only');
   if (!SLUG.test(slug)) throw error(400, 'Invalid client');
   if (!FILE_NAMES.has(file)) throw error(400, 'Not a brain file');
