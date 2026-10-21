@@ -33,14 +33,14 @@
 
 {#if editing}
   <form
-    class="flex flex-wrap items-center gap-2 text-sm"
+    class="flex w-80 max-w-full flex-wrap items-center justify-end gap-2 text-right text-sm"
     onsubmit={save}
     data-testid="display-name-form"
   >
     <label class="text-fulcra-gray">
       <span class="sr-only">Display name</span>
       <input
-        class="w-48 rounded-lg bg-fulcra-black px-3 py-1.5 text-fulcra-white"
+        class="w-44 rounded-lg bg-fulcra-black px-3 py-1.5 text-fulcra-white"
         bind:value={draft}
         placeholder={accountName ?? 'Your name'}
         maxlength={MAX_DISPLAY_NAME}
