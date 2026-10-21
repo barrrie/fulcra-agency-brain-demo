@@ -1,12 +1,15 @@
 import { env } from '$env/dynamic/public';
 import { error, json } from '@sveltejs/kit';
 import { FulcraAPI } from '$lib/api-client.js';
+import { DEMO_SANDBOX, personaFor } from '$lib/server/sandbox.js';
 
 /**
  * Server-side endpoint to fetch user info from Fulcra API
  * Uses FulcraAPI for organized API access
  */
 export async function GET({ cookies }) {
+  if (DEMO_SANDBOX) return json({ name: personaFor(cookies).name });
+
   const accessToken = cookies.get('fulcra_access_token');
 
   if (!accessToken) {

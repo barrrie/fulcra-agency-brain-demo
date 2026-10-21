@@ -3,6 +3,7 @@ import { FulcraAPI } from '$lib/api-client.js';
 import { listClients, CLIENTS_ROOT, AGENCY_ROOT, DEMO_FIXTURES, uploadFile } from '$lib/server/brains.js';
 import { env as privateEnv } from '$env/dynamic/private';
 import { error } from '@sveltejs/kit';
+import { DEMO_SANDBOX, getSandbox, sandboxCall } from '$lib/server/sandbox.js';
 import { buildAccessMap, shareReach, grantBody, revokePlan, UUID, addTeammate } from '$lib/access.js';
 
 export const TEAM_PATH = `${AGENCY_ROOT}/team.json`;
@@ -55,6 +56,7 @@ async function readGroups(token, ids) {
 
 /** Everything the access page needs, read live from Fulcra. */
 export async function loadAccessMap(token) {
+  if (DEMO_SANDBOX) return getSandbox().accessMap();
   if (DEMO_FIXTURES) throw error(403, 'Access management is off in demo mode');
   const api = new FulcraAPI(env.PUBLIC_FULCRA_API_ENDPOINT, token);
   const [clients, shares, team] = await Promise.all([
@@ -83,6 +85,7 @@ function checkTarget(clients, slug, kind, id) {
 
 /** Share one client folder with one user or group. */
 export async function grantAccess(token, { slug, kind, id }) {
+  if (DEMO_SANDBOX) return sandboxCall(() => getSandbox().grant({ slug, kind, id }));
   const api = new FulcraAPI(env.PUBLIC_FULCRA_API_ENDPOINT, token);
   const clients = await listClients(token);
   checkTarget(clients, slug, kind, id);
@@ -97,6 +100,7 @@ export async function grantAccess(token, { slug, kind, id }) {
  * gives it. Single-recipient shares are deleted; others are rewritten.
  */
 export async function revokeAccess(token, { slug, kind, id }) {
+  if (DEMO_SANDBOX) return sandboxCall(() => getSandbox().revoke({ slug, kind, id }));
   const api = new FulcraAPI(env.PUBLIC_FULCRA_API_ENDPOINT, token);
   const clients = await listClients(token);
   checkTarget(clients, slug, kind, id);
@@ -124,6 +128,7 @@ export async function revokeAccess(token, { slug, kind, id }) {
  * removed on its own). Clients they can already read are skipped.
  */
 export async function onboardTeammate(token, { name, id, slugs }) {
+  if (DEMO_SANDBOX) return sandboxCall(() => getSandbox().onboard({ name, id, slugs }));
   if (!UUID.test(id || '')) throw error(400, 'Not a valid Fulcra ID');
   const ownerId = privateEnv.OWNER_USER_ID;
   if (id === ownerId) throw error(400, 'That is your own ID');

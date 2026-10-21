@@ -49,26 +49,25 @@ The slides exist to set up the demo. If you're running long, cut talk from the s
 
 ## Live demo (about 3:00)
 
-**On screen:** Switch to the app. Scrubbed version with fictional clients (Pebblebrook Pet Co, Corvid Analytics, Quarry Climbing) and a fictional teammate.
+**On screen:** Switch to the app, in demo sandbox mode: scrubbed, with fictional clients (Pebblebrook Pet Co, Corvid Analytics, Quarry Climbing) and a fictional new hire, Sam. Two windows side by side, you on the left, Sam on the right.
 
 **1. What the brain looks like (0:45)**
 - Open one client brain as the owner. Click through Brief, Voice and guardrails, and Decisions.
 - Point: "If someone new picked this up tomorrow, this is everything they'd need on day one."
 - Optional, if time: the Asana tab. Mention that tasks mentioning pricing are left out automatically.
 
-**2. Connect someone to a project (0:45)**
-- Go to the Access page. Show the table of who can read which client.
-- Grant the teammate access to a client they don't have yet.
-- Point: "That's onboarding someone onto a project. One click, and they get the whole context."
+**2. Connect someone to one client (0:45)**
+- Flip to the right-hand window, viewing as Sam, who isn't on any project yet. They see nothing except their Fulcra ID. Copy it.
+- Back in your window, open Access. Paste Sam's ID into *Add a teammate*, tick **one** client, confirm.
+- Point: "That's onboarding someone onto a project. One step, and they get the whole context for that client and nothing else."
 
 **3. See it from their side (0:45)**
-- Switch to the second browser, signed in as the teammate. Refresh.
-- The new client appears. The others don't. Try to edit: it's read-only.
+- Refresh Sam's window. One client appears, not the other two. Open it: everything's there, marked read-only.
 - Point: "They see exactly what I've shared, nothing else, and they can't change the source of truth."
 
 **4. Roll them off (0:45)**
-- Back to the owner's Access page. Revoke that client.
-- Refresh the teammate's browser: the client is gone.
+- Back on Access, click *Remove* next to Sam's client and confirm.
+- Refresh Sam's window: the brain is gone. Hit home and they're back to nothing.
 - Point: "Project's over, access is over. No cleanup, no 'can you remove me from that Drive folder' email."
 
 ## Handoff (about 0:30)
@@ -84,10 +83,10 @@ The slides exist to set up the demo. If you're running long, cut talk from the s
 
 ## Prep checklist (not slides)
 
-- Run the app in real mode against your Fulcra account with the seeded fictional brains, so granting and revoking actually work. Demo mode is read-only.
-- Optionally set the agency name in the app to Kind Stranger, keeping the clients fictional.
-- Two browser windows side by side, one signed in as you (owner) and one as the teammate account, both already signed in. Don't do sign-in live.
-- Start the teammate with access to one client, so the grant and revoke are visible changes.
+- Run `npm run demo` on your laptop. That's the demo sandbox: fictional brains, no Fulcra sign-in, sharing simulated in memory. Your real Fulcra account is never touched, and it works offline once it's running.
+- Optionally set `PUBLIC_AGENCY_NAME="Kind Stranger"` in `.env`, keeping the clients fictional. Click "change" next to "Signed in as" to show yourself as Barrie rather than Morgan.
+- Two windows side by side: a normal one viewing as Morgan (you), a private one where you click **Sam** in the top bar. Each window keeps its own person.
+- Hit **Reset** in the top bar (or restart the server) before you go on, so Sam starts with nothing.
 - Bump the browser zoom so the back row can read it.
-- Have screenshots of each demo step ready in case the venue Wi-Fi lets you down.
+- Have screenshots of each demo step ready anyway, in case the laptop misbehaves.
 - Rehearse the demo with a timer. If it runs over, drop the Asana tab first, then trim step 1.
