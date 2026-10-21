@@ -2,7 +2,7 @@
 
 **Speaker:** Barrie, CEO of Kind Stranger
 **Audience:** AI-savvy founders and creatives, mostly not engineers
-**Shape:** 4 slides (about 1:30), live demo (about 3:00), handoff (about 0:30)
+**Shape:** 4 slides (about 1:35), live demo (about 3:00), handoff (about 0:30)
 
 The slides exist to set up the demo. If you're running long, cut talk from the slides, not the demo.
 
@@ -28,14 +28,15 @@ The slides exist to set up the demo. If you're running long, cut talk from the s
 - And I didn't want to just open the floodgates. They need the full picture on their clients, nothing on the clients they aren't on, and no commercial terms anywhere.
 - When someone moves off a project, that access should go away cleanly, not live on in a forgotten shared folder.
 
-## Slide 3: So I built a company brain on Fulcra (0:25)
+## Slide 3: My Claude account became the sticky center (0:30)
 
-**On screen:** A simple picture: one folder per client, seven cards inside (Brief, People, Voice and guardrails, Playbook, Decisions, Log, Links), with a person icon connected to some folders and not others.
+**On screen:** Before and after, side by side. Left, in orange: one big circle labelled "My Claude account" with every client and every connector jammed inside, plus three problems around it: locked to one model, MCPs are all or nothing, and a broken line out to "My first hire" saying you can't share just one client. Right, in blue: a Fulcra box ("my memory + storage") holding one folder per client. Two are locked, one is connected both ways to "My hire", and the whole box connects to "Claude, or any model".
 
 **Say:**
-- Every client gets a "brain": the seven things someone needs to pick up a client cold.
-- It lives in my Fulcra account. Fulcra decides who can read what, so a teammate signs in with their own account and only sees the clients I've shared with them.
-- Two house rules are built in: no pricing or commercial terms in a brain, and no client ever mentioned inside another client's brain.
+- For a long time my Claude account was the center of everything: memory, projects, every client, every connector. Fine solo.
+- Then I hired someone and hit three walls. I'm locked to one model. Connectors are all or nothing, so I can't carve out one client's data. And there's no clean way to hand over just one client.
+- So I built my own memory and storage layer on Fulcra. Each client is its own folder that I own, and any model can read it.
+- I share exactly one client with my hire, and when the project ends I revoke it. Next step is letting her pipe her own notes back into that client. That part's where this is heading, not what I'll show today.
 
 ## Slide 4: How it got built (0:15)
 
@@ -72,7 +73,7 @@ The slides exist to set up the demo. If you're running long, cut talk from the s
 
 ## Handoff (about 0:30)
 
-**On screen:** Back to a closing slide: "Context is the new onboarding." Your name, Kind Stranger, and where to find you (and The Flesh Report, if you want the plug).
+**On screen:** The closing slide: "Context is the new onboarding." Your name, Kind Stranger, and where to find you (and The Flesh Report, if you want the plug).
 
 **Say:**
 - The takeaway: once you have more than one person, your AI context has to be shareable *and* controllable. Fulcra gave me the second part for free.
