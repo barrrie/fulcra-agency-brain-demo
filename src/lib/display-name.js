@@ -88,8 +88,8 @@ export function saveDisplayName(userId, value, storage = globalThis.localStorage
 }
 
 /**
- * Saved display names by Fulcra ID, shared so every view (home page, owner
- * nav) updates as soon as one is saved.
+ * Saved display names by Fulcra ID, shared so every view (home page, access
+ * page, owner nav) updates as soon as one is saved.
  * @param {Pick<Storage, 'getItem' | 'setItem' | 'removeItem'>} [storage]
  */
 export function createDisplayNames(storage = globalThis.localStorage) {
