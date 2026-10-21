@@ -111,8 +111,12 @@ export async function listClients(token, asUser = null) {
     .sort();
 }
 
-/** Turn a slug into a display name ("corvid-analytics" -> "Corvid Analytics"). */
+/** Names that title-casing the slug gets wrong. */
+const DISPLAY_NAMES = { mcdonalds: "McDonald's" };
+
+/** Turn a slug into a display name ("delta-air-lines" -> "Delta Air Lines"). */
 export function displayName(slug) {
+  if (DISPLAY_NAMES[slug]) return DISPLAY_NAMES[slug];
   return slug
     .split('-')
     .map((w) => w.charAt(0).toUpperCase() + w.slice(1))

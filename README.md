@@ -2,7 +2,7 @@
 
 A SvelteKit app that keeps one "brain" per agency client in Fulcra and controls who on the team can read each one. Built on the Fulcra Svelte app template.
 
-**Everything in this repo is fictional.** The agency (Northlight Studio), its clients (Pebblebrook Pet Co, Corvid Analytics, Quarry Climbing), the people, emails and Fulcra IDs are invented for the demo.
+**The demo data is fictional.** The sample clients use real brand names (Starbucks, Delta Air Lines, McDonald's) so the brains feel familiar, but the engagements, people, emails, numbers and Fulcra IDs are invented. None of these companies is a client and none of them is involved with this demo. The agency (Northlight Studio) is invented too.
 
 ## What it does
 

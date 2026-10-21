@@ -1,7 +1,7 @@
 {
   "fictional": true,
   "source": "asana",
-  "project": "Pebblebrook Pet Co \u00b7 Community",
+  "project": "Starbucks \u00b7 Community",
   "merged_at": "2026-10-19T08:00:00Z",
   "tasks": [
     {
@@ -15,20 +15,20 @@
     },
     {
       "gid": "12000000000302",
-      "name": "Owned-sub drafts to legal",
+      "name": "Brand-sub drafts to mods and legal",
       "due_on": "2026-09-24",
       "completed": true,
       "assignee": "Priya",
-      "section": "Owned sub",
+      "section": "Brand sub",
       "url": "https://app.asana.com/0/12000000000003/12000000000302"
     },
     {
       "gid": "12000000000303",
-      "name": "Chase legal on \"vet-formulated\" claim",
+      "name": "Chase legal on seasonal-availability wording",
       "due_on": "2026-10-13",
       "completed": false,
       "assignee": "Morgan",
-      "section": "Owned sub",
+      "section": "Brand sub",
       "url": "https://app.asana.com/0/12000000000003/12000000000303"
     },
     {
@@ -42,7 +42,7 @@
     },
     {
       "gid": "12000000000305",
-      "name": "Transition-guide comment for r/dogs",
+      "name": "Mobile-order tips comment for r/starbucks",
       "due_on": "2026-10-21",
       "completed": false,
       "assignee": "Priya",
@@ -51,7 +51,7 @@
     },
     {
       "gid": "12000000000306",
-      "name": "Dr. Okafor review: allergy answer",
+      "name": "Lena review: stars-expiry answer",
       "due_on": "2026-10-23",
       "completed": false,
       "assignee": "Priya",
@@ -78,16 +78,16 @@
     },
     {
       "gid": "12000000000309",
-      "name": "Owned-sub launch checklist",
+      "name": "Brand-sub pinned-posts checklist",
       "due_on": "2026-11-12",
       "completed": false,
       "assignee": "Priya",
-      "section": "Owned sub",
+      "section": "Brand sub",
       "url": "https://app.asana.com/0/12000000000003/12000000000309"
     },
     {
       "gid": "12000000000310",
-      "name": "Shipping-delay FAQ thread",
+      "name": "Seasonal-menu FAQ thread",
       "due_on": null,
       "completed": false,
       "assignee": "Priya",
