@@ -42,6 +42,12 @@
             Home
           </a>
           <a
+            href="/map"
+            class="text-fulcra-teal hover:text-fulcra-teal/80 font-medium"
+          >
+            Map
+          </a>
+          <a
             href="/access"
             class="text-fulcra-teal hover:text-fulcra-teal/80 font-medium"
           >

@@ -12,7 +12,10 @@
 
   let brain = $state(null);
   let loadError = $state(null);
-  let active = $state('brief.md');
+  // ?section=log.md opens straight on that file (the map links here).
+  const SECTION_FILES = ['brief.md', 'people.md', 'voice-and-guardrails.md', 'playbook.md', 'decisions.md', 'log.md', 'links.md'];
+  const requested = page.url.searchParams.get('section');
+  let active = $state(SECTION_FILES.includes(requested) ? requested : 'brief.md');
 
   // Editing
   let editing = $state(false);

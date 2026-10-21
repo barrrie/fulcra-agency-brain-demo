@@ -11,6 +11,7 @@ A SvelteKit app that keeps one "brain" per agency client in Fulcra and controls 
 - **Owner view.** Edit any file, see every saved version, restore an old one.
 - **Teammate view.** Teammates sign in with their own Fulcra account and see only the clients shared with them, read-only. Fulcra's data shares decide what they can see, and the server blocks writes, not just the buttons.
 - **Display names.** Everyone sees "Signed in as …" on the home page, using the name on their Fulcra account until they pick their own display name. It's saved in their browser, keyed by Fulcra ID, so there's no new write route for teammates.
+- **Map.** Every bullet, row and note across the brains you can read, drawn as one turning field. Memories that say similar things sit together, in regions named from their own words. Recolour by client or section, search to light up matches, click one to open it in its brain.
 - **Access page.** One table of who can read which client, inside and outside the team. Grant, revoke, or add a teammate and share several clients in one step.
 
 ## Run it
@@ -52,6 +53,7 @@ To try editing, history and sharing against your own Fulcra:
 
 - **Sign-in:** Auth0 device flow, token in an HTTP-only cookie, all Fulcra calls proxied server-side (`src/lib/user.js`, `src/routes/api/auth/`).
 - **Brains:** `src/lib/server/brains.js` lists `<root>/clients/*`, reads the seven files, and saves new versions. Teammates read the owner's files as a share recipient (`fulcra_userid=<owner>`), so Fulcra enforces access.
+- **Map:** `src/lib/brain-map.js` (pure, tested) splits brains into memories, groups them with TF-IDF and k-means, and lays them out in 3D. `/api/map` reads only the brains the caller can see; `BrainMap.svelte` draws them on a canvas.
 - **Access:** `src/lib/access.js` (pure, tested) builds the who-sees-what map from Fulcra data shares and groups; `src/lib/server/access.js` grants, revokes and onboards.
 
 ## Scripts
