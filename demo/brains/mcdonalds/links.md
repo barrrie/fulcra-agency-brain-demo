@@ -7,5 +7,5 @@ fictional: true  # demo data: real brand name, but the engagement, people and nu
 
 All links below are placeholders for the demo.
 
-- Shared email thread: "McDonald's co-op x Northlight pilot"
+- Shared email thread: "McDonald's co-op x Kind Stranger pilot"
 - Content calendar: (Google Sheet, internal)

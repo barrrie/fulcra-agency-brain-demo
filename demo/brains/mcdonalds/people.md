@@ -13,7 +13,7 @@ fictional: true  # demo data: real brand name, but the engagement, people and nu
 | Felix Ambrose | Owner-operator, four restaurants in one test market. Posts the behind-the-counter content. | felix@mcdonalds.example |
 | Restaurant general managers (two) | Local events and community nights. | — |
 
-## Northlight Studio
+## Kind Stranger
 - **Morgan:** strategy.
 - **Priya:** local-sub monitoring and drafts.
 
