@@ -16,7 +16,7 @@ fictional: true  # demo data, not a real company or person
 ## Signalboard
 - **Mel Ortega:** partnerships lead, weekly sync.
 
-## Northlight Studio
+## Kind Stranger
 - **Morgan:** strategy and drafting.
 - **Priya:** thread monitoring.
 

@@ -14,12 +14,12 @@ fictional: true  # demo data, not a real company or person
 | Dr. Lena Okafor | Staff veterinarian. Signs off on anything nutritional. | lena@pebblebrook.example |
 | Sam (last name not recorded) | Legal. Reviewing the "vet-formulated" claim. | — |
 
-## Northlight Studio
+## Kind Stranger
 - **Morgan:** strategy, picks which opportunities get drafted.
 - **Priya:** flags threads, drafts comments, owns the owned-sub calendar.
 
 ## Approval flow
-- **Comments:** Priya flags, Morgan picks, Northlight drafts, Theo approves in shared Slack, then it posts.
+- **Comments:** Priya flags, Morgan picks, Kind Stranger drafts, Theo approves in shared Slack, then it posts.
 - **Anything nutritional:** also goes to Dr. Okafor. Adds about a day.
 
 ## Cadence

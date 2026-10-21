@@ -2,7 +2,7 @@
 
 A SvelteKit app that keeps one "brain" per agency client in Fulcra and controls who on the team can read each one. Built on the Fulcra Svelte app template.
 
-**Everything in this repo is fictional.** The agency (Northlight Studio), its clients (Pebblebrook Pet Co, Corvid Analytics, Quarry Climbing), the people, emails and Fulcra IDs are invented for the demo.
+**The client data in this repo is fictional.** The agency name is Kind Stranger, but its clients (Pebblebrook Pet Co, Corvid Analytics, Quarry Climbing), the people, emails and Fulcra IDs are invented for the demo.
 
 ## What it does
 
@@ -44,7 +44,7 @@ To try editing, history and sharing against your own Fulcra:
 | `AGENCY_ROOT` / `PUBLIC_AGENCY_ROOT` | `/demo-agency` | Fulcra folder holding `clients/` and `team.json` |
 | `OWNER_USER_ID` | none | Fulcra ID of the owner (server-only) |
 | `PUBLIC_APP_NAME` | `Agency Brain` | App title |
-| `PUBLIC_AGENCY_NAME` | `Northlight Studio` | Agency name in the UI |
+| `PUBLIC_AGENCY_NAME` | `Kind Stranger` | Agency name in the UI |
 | `PUBLIC_OWNER_NAME` | `the agency owner` | Who teammates ask for access |
 | `PUBLIC_AUTH0_DOMAIN`, `PUBLIC_AUTH0_CLIENT_ID`, `PUBLIC_FULCRA_API_ENDPOINT` | see `.env.example` | Fulcra sign-in and API |
 

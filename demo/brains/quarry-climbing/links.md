@@ -7,5 +7,5 @@ fictional: true  # demo data, not a real company or person
 
 All links below are placeholders for the demo.
 
-- Shared email thread: "Quarry x Northlight pilot"
+- Shared email thread: "Quarry x Kind Stranger pilot"
 - Content calendar: (Google Sheet, internal)

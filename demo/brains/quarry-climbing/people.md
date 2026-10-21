@@ -13,7 +13,7 @@ fictional: true  # demo data, not a real company or person
 | Felix Ambrose | Head route setter. Posts the setting content. | felix@quarry.example |
 | Gym managers (two) | Local promos and event dates. | — |
 
-## Northlight Studio
+## Kind Stranger
 - **Morgan:** strategy.
 - **Priya:** local-sub monitoring and drafts.
 
